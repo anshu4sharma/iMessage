@@ -6,7 +6,7 @@ import ReactNav from "./components/ReactNav";
 //  it's import to initialize it here
 // const socket = io("http://localhost:3000");
 // const socket = io("https://socket-server-gh87.onrender.com");
-import Sound from './components/Sounds/notification.mp3'
+import Sound from "./components/Sounds/notification.mp3";
 const socket = io("https://socket-io-server-production.up.railway.app");
 function App() {
   const [msg, setMsg] = useState("");
@@ -15,7 +15,7 @@ function App() {
   const [pvtmsg, setpvtmsg] = useState([]);
   let UserName = localStorage?.getItem("userName") ?? "";
   const [Usrname, setmUserName] = useState(UserName);
-  const audio = new Audio(Sound)
+  const audio = new Audio(Sound);
 
   const sendMsg = async () => {
     await socket.emit("send_msg", { msg, Usrname });
@@ -27,13 +27,15 @@ function App() {
   };
   useEffect(() => {
     socket.on("received_msg", (data) => {
-      audio.play()
+      audio.play();
+      window.navigator.vibrate(200);
       // this will braodcast message to other open another window to see result
       setmsgRec((prev) => [...prev, data]);
     });
-    
+
     socket.on("pvt_received_msg", (data) => {
-      audio.play()
+      audio.play();
+      window.navigator.vibrate(200);
       // this will braodcast message to other open another window to see result
       setpvtmsg((prev) => [...prev, data]);
     });
