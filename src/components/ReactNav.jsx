@@ -32,12 +32,12 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
     return (
       <Modal show={showRoom} onHide={handleRoomClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Enter You Name</Modal.Title>
+          <Modal.Title>Please Enter you Room Ide</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={roomSubmit} className="grid my-2">
             <Form.Group className="mb-3" controlId="userName">
-              <Form.Label>Please Enter you Room Id</Form.Label>
+              <Form.Label>Room id should be uniq. </Form.Label>
               <Form.Control
                 required
                 type="text"
@@ -46,7 +46,7 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
                 placeholder="Type here ..."
               />
               <Form.Text className="text-muted">
-                Room id should be uniq. Share it with your friend and family to
+                Share it with your friend and family to
                 chat privately
               </Form.Text>
             </Form.Group>
