@@ -1,5 +1,5 @@
 {
-  "name": "imessage",
+  "name": "iMessage",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,7 +9,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "bootstrap": "^5.2.2",
+    "daisyui": "^2.31.0",
+    "react-bootstrap": "^2.5.0",
+    "react-toastify": "^9.0.8",
+    "socket.io-client": "^4.5.2"
   },
   "scripts": {
     "start": "react-scripts start",

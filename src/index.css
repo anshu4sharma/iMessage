@@ -1,13 +1,114 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap");
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(255, 255, 255);
+}
+
+.modal-header .btn-close {
+  display: none;
+}
+
+footer {
+  position: fixed;
+  height: 10rem;
+  width: 100%;
+  bottom: -6rem;
+  background-color: rgb(255, 255, 255);
+}
+
+.message-form {
+  display: grid;
+  grid-template-columns: 6fr 1fr;
+  place-content: center;
+  gap: 1rem;
+}
+
+.send-message {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.message-container {
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 5rem;
+  height: 100%;
+}
+
+.home-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.upcoming-msg-parent {
+  display: grid;
+  gap: 1rem;
+}
+
+li {
+  list-style: none;
+}
+
+.upcoming-message {
+  min-height: 1rem;
+  touch-action: manipulation;
+  padding:0.5rem 1rem;
+  display: block;
+  width: fit-content;
+  border: 1px solid;
+  color: black;
+  border-radius: 22px;
+  background-color: white;
+  border: 1px solid #e9ecef;
+  margin: 0.3rem 0;
+}
+
+.upcoming-msg-parent {
+  bottom: 100%;
+  display: block;
+  width: 100%;
+}
+
+.outgoing-msg {
+  padding: 0.4rem 0.8rem;
+  display: grid;
+  gap: 1rem;
+  color: black;
+  border-radius: 22px;
+  padding-bottom: 0;
+  padding-top: 16px;
+  touch-action: manipulation;
+  background-color: rgb(239, 239, 239);
+  margin: 0.3rem 0;
+}
+
+#outgoing-msg {
+  align-items: flex-end;
+  padding: 0.2rem 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  min-width: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0.2rem 0;
+  touch-action: manipulation;
+  width: 100%;
 }
