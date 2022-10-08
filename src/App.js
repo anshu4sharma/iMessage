@@ -28,14 +28,12 @@ function App() {
   useEffect(() => {
     socket.on("received_msg", (data) => {
       audio.play();
-      window.navigator.vibrate(200);
       // this will braodcast message to other open another window to see result
       setmsgRec((prev) => [...prev, data]);
     });
 
     socket.on("pvt_received_msg", (data) => {
       audio.play();
-      window.navigator.vibrate(200);
       // this will braodcast message to other open another window to see result
       setpvtmsg((prev) => [...prev, data]);
     });
