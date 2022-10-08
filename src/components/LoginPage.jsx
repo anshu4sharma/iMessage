@@ -50,7 +50,7 @@ function LoginPage({ setmUserName }) {
                 placeholder="Type here ..."
               />
               <Form.Text className="text-muted">
-                We'll never share your details with anyone else.
+                We'll never share your details with anyone else, currently we are not using any databse to store messages , all chat will automaticaly wipe out after the page refresh 
               </Form.Text>
             </Form.Group>
             <Button type="submit" variant="outline-dark">

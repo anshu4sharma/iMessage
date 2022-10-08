@@ -32,7 +32,7 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
     return (
       <Modal show={showRoom} onHide={handleRoomClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Please Enter you Room Ide</Modal.Title>
+          <Modal.Title>Please Enter you Room Id</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={roomSubmit} className="grid my-2">
