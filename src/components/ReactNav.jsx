@@ -13,7 +13,7 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
 
   const handleClose = () => setShow(false);
   const handleRoomClose = () => setshowRoom(false);
-  const handleShow = () => setShow(true);
+  // const handleShow = () => setShow(true);
   const handleshowRoom = () => setshowRoom(true);
 
   const formSubmit = (e) => {
@@ -46,7 +46,8 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
                 placeholder="Type here ..."
               />
               <Form.Text className="text-muted">
-               Room id should be uniq. Share it with your friend and family to chat privately 
+                Room id should be uniq. Share it with your friend and family to
+                chat privately
               </Form.Text>
             </Form.Group>
             <Button variant="success" type="submit">
@@ -86,7 +87,7 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
           </Modal.Body>
         </Modal>
       ) : (
-        <Navbar sticky="top" bg="transparent">
+        <Navbar bg="transparent">
           <Container>
             <Nav className="me-auto">
               <Nav.Link href="#">
@@ -96,7 +97,7 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
                   </Button>
                 ) : (
                   <Button variant="outline-secondary" onClick={handleshowRoom}>
-                    Join Room <Badge bg="secondary">Beta</Badge>
+                    Join Room
                     <span className="visually-hidden">unread messages</span>
                   </Button>
                 )}
@@ -116,7 +117,10 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
               </Nav.Link> */}
               {room !== "" && (
                 <Nav.Link href="#">
-                  <Button onClick={() => setshowRoom(true)} variant="outline-success">
+                  <Button
+                    onClick={() => setshowRoom(true)}
+                    variant="outline-success"
+                  >
                     <Badge bg="success">
                       Change Room
                       <span
