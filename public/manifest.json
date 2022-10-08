@@ -1,8 +1,8 @@
 {
   "name": "iMessage",
   "short_name": "iMessage",
-  "theme_color": "#2196f3",
-  "background_color": "#2196f3",
+  "theme_color": "#29a5f6",
+  "background_color": "#29a5f6",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
