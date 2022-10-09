@@ -24,7 +24,7 @@ const MessageForm = ({
   const formSubmit = (e) => {
     e.preventDefault();
     if (room === "") {
-      sendMsg();
+    sendMsg();
     } else {
       sendPvtMsg();
     }
