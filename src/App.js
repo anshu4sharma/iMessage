@@ -75,7 +75,9 @@ function App() {
           socket={socket}
           Usrname={Usrname}
         />
-        <MessageForm
+        
+      </div>
+      <MessageForm
           msg={msg}
           Usrname={Usrname}
           sendPvtMsg={sendPvtMsg}
@@ -84,7 +86,6 @@ function App() {
           room={room}
           socket={socket}
         />
-      </div>
     </>
   );
 }

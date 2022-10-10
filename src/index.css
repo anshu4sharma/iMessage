@@ -12,10 +12,7 @@ html {
 }
 
 body {
-  background-image: url("https://images.unsplash.com/photo-1555448248-2571daf6344b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80");
   height: 100vh;
-  background-repeat: repeat;
-  background-size: cover;
 }
 
 .modal-header .btn-close {
@@ -27,11 +24,6 @@ footer {
   height: 10rem;
   width: 100%;
   bottom: -6rem;
-  /* background-color: #50E3C2; */
-  background-image: radial-gradient(at 47% 33%,
-      hsl(162, 77%, 40%) 0,
-      transparent 59%),
-    radial-gradient(at 82% 65%, hsl(198, 100%, 50%) 0, transparent 55%);
 }
 
 .message-form {
@@ -109,7 +101,7 @@ li {
   touch-action: manipulation;
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: #efefef;
   border-radius: 12px;
   border: 1px solid rgba(209, 213, 219, 0.3);
   margin: 0.3rem 0;

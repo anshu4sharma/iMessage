@@ -90,9 +90,9 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
             <Nav className="me-auto">
               <Nav.Link href="#">
                 {room !== "" ? (
-                  <Button variant="outline-light">You are inside {room}</Button>
+                  <Button variant="outline-secondary">You are inside {room}</Button>
                 ) : (
-                  <Button variant="outline-light " onClick={handleshowRoom}>
+                  <Button variant="outline-secondary " onClick={handleshowRoom}>
                     Join Room
                     <span className="visually-hidden">unread messages</span>
                   </Button>
@@ -115,7 +115,7 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
                 <Nav.Link href="#">
                   <Button
                     onClick={() => setshowRoom(true)}
-                    variant="outline-light"
+                    variant="outline-secondary"
                   >
                     Change Room
                     <span

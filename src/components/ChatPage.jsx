@@ -18,6 +18,7 @@ const ChatPage = ({ msgRec, pvtmsg, room, setmUserName, socket, Usrname }) => {
   }, []);
 
   useEffect(() => {
+
     if (msgref.current?.lastChild) {
       msgref.current.lastChild.scrollIntoView();
     }
