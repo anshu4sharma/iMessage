@@ -19,12 +19,12 @@ const MessageForm = ({
     div.classList.add("outgoing-msg");
     div.appendChild(para);
     const nodeDiv = div.cloneNode(true);
-    document.getElementById("outgoing-msg").append(nodeDiv);
+    document.getElementById("message-container-child").append(nodeDiv);
   };
   const formSubmit = (e) => {
     e.preventDefault();
     if (room === "") {
-    sendMsg();
+      sendMsg();
     } else {
       sendPvtMsg();
     }

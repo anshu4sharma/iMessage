@@ -22,7 +22,7 @@ const ChatPage = ({ msgRec, pvtmsg, room, setmUserName, socket, Usrname }) => {
         <>
           <ToastContainer />
           <div className="container message-container">
-            <div className="my-1 upcoming-msg-parent">
+            <div className="my-1 msg-container" id="message-container-child">
               {room === ""
                 ? msgRec.map((data, index) => {
                     return (

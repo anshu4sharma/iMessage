@@ -80,7 +80,7 @@ li {
   margin: 0.3rem 0;
 }
 
-.upcoming-msg-parent {
+.msg-container {
   bottom: 100%;
   display: block;
   width: 100%;
@@ -97,10 +97,11 @@ li {
   touch-action: manipulation;
   background-color: rgb(239, 239, 239);
   margin: 0.3rem 0;
+  width: fit-content;
+  align-self: flex-end;
 }
 
-#outgoing-msg {
-  align-items: flex-end;
+#message-container-child {
   padding: 0.2rem 1rem;
   box-sizing: border-box;
   overflow: hidden;
