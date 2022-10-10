@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import LoginPage from "./LoginPage";
-import Badge from "react-bootstrap/Badge";
 import { ToastContainer, toast } from "react-toastify";
+import { useRef } from "react";
 
 const ChatPage = ({ msgRec, pvtmsg, room, setmUserName, socket, Usrname }) => {
+  const msgref = useRef();
   useEffect(() => {
     socket.on("user_left", () => {
       toast(`Someone had left the chat !`);
@@ -16,18 +17,28 @@ const ChatPage = ({ msgRec, pvtmsg, room, setmUserName, socket, Usrname }) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (msgref.current?.lastChild) {
+      msgref.current.lastChild.scrollIntoView();
+    }
+  }, [msgRec, msgref.current?.lastChild]);
+
   return (
     <>
       {Usrname ? (
         <>
           <ToastContainer />
           <div className="container message-container">
-            <div className="my-1 msg-container" id="message-container-child">
+            <div
+              ref={msgref}
+              className="my-1 msg-container"
+              id="message-container-child"
+            >
               {room === ""
                 ? msgRec.map((data, index) => {
                     return (
                       <div className="upcoming-message" key={index}>
-                        <Badge bg="secondary">{data.Usrname}</Badge>
+                        <span style={{ fontSize: "12px" }}>{data.Usrname}</span>
                         <li> {data.msg}</li>
                       </div>
                     );
@@ -40,7 +51,6 @@ const ChatPage = ({ msgRec, pvtmsg, room, setmUserName, socket, Usrname }) => {
                     );
                   })}
             </div>
-            <div id="outgoing-msg"></div>
           </div>
         </>
       ) : (

@@ -1,7 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
@@ -46,8 +45,7 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
                 placeholder="Type here ..."
               />
               <Form.Text className="text-muted">
-                Share it with your friend and family to
-                chat privately
+                Share it with your friend and family to chat privately
               </Form.Text>
             </Form.Group>
             <Button variant="success" type="submit">
@@ -92,11 +90,9 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
             <Nav className="me-auto">
               <Nav.Link href="#">
                 {room !== "" ? (
-                  <Button variant="outline-success">
-                    <Badge bg="success">You are inside {room}</Badge>
-                  </Button>
+                  <Button variant="outline-light">You are inside {room}</Button>
                 ) : (
-                  <Button variant="outline-secondary" onClick={handleshowRoom}>
+                  <Button variant="outline-light " onClick={handleshowRoom}>
                     Join Room
                     <span className="visually-hidden">unread messages</span>
                   </Button>
@@ -119,17 +115,15 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
                 <Nav.Link href="#">
                   <Button
                     onClick={() => setshowRoom(true)}
-                    variant="outline-success"
+                    variant="outline-light"
                   >
-                    <Badge bg="success">
-                      Change Room
-                      <span
-                        style={{ fontSize: "16px", padding: "0 8px " }}
-                        className="material-symbols-outlined"
-                      >
-                        edit
-                      </span>
-                    </Badge>
+                    Change Room
+                    <span
+                      style={{ fontSize: "16px", padding: "0 8px " }}
+                      className="material-symbols-outlined"
+                    >
+                      edit
+                    </span>
                   </Button>
                 </Nav.Link>
               )}

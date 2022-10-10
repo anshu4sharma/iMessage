@@ -12,7 +12,10 @@ html {
 }
 
 body {
-  background-color: rgb(255, 255, 255);
+  background-image: url("https://images.unsplash.com/photo-1555448248-2571daf6344b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80");
+  height: 100vh;
+  background-repeat: repeat;
+  background-size: cover;
 }
 
 .modal-header .btn-close {
@@ -24,7 +27,11 @@ footer {
   height: 10rem;
   width: 100%;
   bottom: -6rem;
-  background-color: rgb(255, 255, 255);
+  /* background-color: #50E3C2; */
+  background-image: radial-gradient(at 47% 33%,
+      hsl(162, 77%, 40%) 0,
+      transparent 59%),
+    radial-gradient(at 82% 65%, hsl(198, 100%, 50%) 0, transparent 55%);
 }
 
 .message-form {
@@ -69,7 +76,7 @@ li {
 .upcoming-message {
   min-height: 1rem;
   touch-action: manipulation;
-  padding:0.5rem 1rem;
+  padding: 0.5rem 1rem;
   display: block;
   width: fit-content;
   border: 1px solid;
@@ -78,6 +85,11 @@ li {
   background-color: white;
   border: 1px solid #e9ecef;
   margin: 0.3rem 0;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
 }
 
 .msg-container {
@@ -95,14 +107,17 @@ li {
   padding-bottom: 0;
   padding-top: 16px;
   touch-action: manipulation;
-  background-color: rgb(239, 239, 239);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
   margin: 0.3rem 0;
   width: fit-content;
   align-self: flex-end;
 }
 
 #message-container-child {
-  padding: 0.2rem 1rem;
   box-sizing: border-box;
   overflow: hidden;
   min-width: 44px;
