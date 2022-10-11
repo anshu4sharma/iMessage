@@ -4,10 +4,10 @@ import ChatPage from "./components/ChatPage";
 import MessageForm from "./components/MessageForm";
 import ReactNav from "./components/ReactNav";
 //  it's import to initialize it here
-// const socket = io("http://localhost:3000");
 // const socket = io("https://socket-server-gh87.onrender.com");
 import Sound from "./components/Sounds/notification.mp3";
 const socket = io("https://socket-io-server-production.up.railway.app");
+// const socket = io("http://localhost:5000");
 function App() {
   const [msg, setMsg] = useState("");
   const [room, setRoom] = useState("");
@@ -16,7 +16,6 @@ function App() {
   let UserName = localStorage?.getItem("userName") ?? "";
   const [Usrname, setmUserName] = useState(UserName);
   const audio = new Audio(Sound);
-
   const sendMsg = async () => {
     await socket.emit("send_msg", { msg, Usrname });
     setMsg("");
@@ -27,16 +26,18 @@ function App() {
   };
   useEffect(() => {
     socket.on("received_msg", (data) => {
-       audio.play();
+      audio.play();
       // this will braodcast message to other open another window to see result
       setmsgRec((prev) => [...prev, data]);
     });
-    
+
     socket.on("pvt_received_msg", (data) => {
       audio.play();
       // this will braodcast message to other open another window to see result
       setpvtmsg((prev) => [...prev, data]);
     });
+
+    // eslint-disable-next-line
   }, [socket]);
   const postData = async () => {
     const url =
@@ -75,17 +76,16 @@ function App() {
           socket={socket}
           Usrname={Usrname}
         />
-        
       </div>
       <MessageForm
-          msg={msg}
-          Usrname={Usrname}
-          sendPvtMsg={sendPvtMsg}
-          sendMsg={sendMsg}
-          setMsg={setMsg}
-          room={room}
-          socket={socket}
-        />
+        msg={msg}
+        Usrname={Usrname}
+        sendPvtMsg={sendPvtMsg}
+        sendMsg={sendMsg}
+        setMsg={setMsg}
+        room={room}
+        socket={socket}
+      />
     </>
   );
 }

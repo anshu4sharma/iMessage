@@ -15,10 +15,10 @@ const ChatPage = ({ msgRec, pvtmsg, room, setmUserName, socket, Usrname }) => {
     socket.on("new_user_joined", (data) => {
       toast(`${data.Usrname || Someone}  has joined the chat`);
     });
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-
     if (msgref.current?.lastChild) {
       msgref.current.lastChild.scrollIntoView();
     }

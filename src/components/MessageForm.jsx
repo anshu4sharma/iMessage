@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -24,7 +24,7 @@ const MessageForm = ({
   const formSubmit = (e) => {
     e.preventDefault();
     if (room === "") {
-      sendMsg();
+    sendMsg();
     } else {
       sendPvtMsg();
     }
@@ -32,22 +32,20 @@ const MessageForm = ({
   };
   useEffect(() => {
     socket.emit("user_joined", { Usrname });
+    // eslint-disable-next-line
   }, []);
-
   return (
     <footer>
       <Form onSubmit={formSubmit} className="grid my-2 mx-4 message-form">
-        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Control
-            as="textarea"
-            rows={1}
-            required
-            autoComplete="off"
-            value={msg}
-            onChange={(e) => setMsg(e.target.value)}
-            placeholder="Message"
-          />
-        </Form.Group>
+        <Form.Control
+          as="textarea"
+          rows={1}
+          required
+          autoComplete="off"
+          value={msg}
+          onChange={(e) => setMsg(e.target.value)}
+          placeholder="Message"
+        />
         <Button type="submit" variant="success send-message">
           <span className="material-symbols-outlined">send</span>
         </Button>
