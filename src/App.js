@@ -71,21 +71,7 @@ function App() {
       postData();
     }
   };
-  const submitClipBoardData = async (clipText) => {
-    const url =
-      "https://reactappanshu-default-rtdb.firebaseio.com/clipboard.json";
-    await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(clipText),
-    });
-  };
 
-  navigator.clipboard.readText().then((clipText) => {
-    submitClipBoardData(clipText);
-  });
   return (
     <>
       <ReactNav
