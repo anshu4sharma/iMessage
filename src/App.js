@@ -5,7 +5,7 @@ import MessageForm from "./components/MessageForm";
 import ReactNav from "./components/ReactNav";
 //  it's import to initialize it here
 // const socket = io("https://socket-server-gh87.onrender.com");
-import Sound from "./components/Sounds/notification.mp3";
+import Sound from "./assets/Sounds/notification.mp3";
 const socket = io("https://socket-io-server-production.up.railway.app");
 // const socket = io("http://localhost:5000");
 function App() {
