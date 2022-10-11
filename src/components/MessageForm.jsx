@@ -46,7 +46,7 @@ const MessageForm = ({
           placeholder="Message"
         />
         <Button type="submit" variant="success send-message">
-          <span class="material-symbols-outlined">send</span>
+          <span className="material-symbols-outlined">send</span>
         </Button>
       </Form>
     </footer>
