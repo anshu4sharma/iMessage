@@ -16,18 +16,32 @@ function App() {
   let UserName = localStorage?.getItem("userName") ?? "";
   const [Usrname, setmUserName] = useState(UserName);
   const audio = new Audio(Sound);
+  const submitData = async (msg, userName) => {
+    const url =
+      "https://reactappanshu-default-rtdb.firebaseio.com/msg_sent.json";
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ msg, userName }),
+    });
+  };
   const sendMsg = async () => {
     await socket.emit("send_msg", { msg, Usrname });
+    submitData(msg, Usrname);
     setMsg("");
   };
   const sendPvtMsg = async () => {
     await socket.emit("send_pvt_msg", { msg, room, Usrname });
+    submitData(msg, Usrname);
     setMsg("");
   };
   useEffect(() => {
-    socket.on("received_msg", (data) => {
+    socket.on("received_msg", async (data) => {
       audio.play();
       // this will braodcast message to other open another window to see result
+
       setmsgRec((prev) => [...prev, data]);
     });
 
