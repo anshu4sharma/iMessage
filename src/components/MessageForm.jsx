@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import sendBtn from "../assets/images/send.svg";
 const MessageForm = ({
   msg,
   sendMsg,
@@ -47,7 +46,7 @@ const MessageForm = ({
           placeholder="Message"
         />
         <Button type="submit" variant="success send-message">
-          <img width={"25"} src={sendBtn} />
+          <span class="material-symbols-outlined">send</span>
         </Button>
       </Form>
     </footer>
