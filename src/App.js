@@ -86,7 +86,6 @@ function App() {
         setmUserName={setmUserName}
         userCount={userCount}
       />
-      <div className="home-page">
         <ChatPage
           room={room}
           setmUserName={setmUserName}
@@ -96,7 +95,6 @@ function App() {
           socket={socket}
           Usrname={Usrname}
         />
-      </div>
       <MessageForm
         msg={msg}
         Usrname={Usrname}

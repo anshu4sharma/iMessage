@@ -11,24 +11,23 @@ const ChatPage = ({ msgRec, pvtmsg, room, setmUserName, socket, Usrname }) => {
     });
   }, [socket]);
   useEffect(() => {
-    let Someone = "Someone";
     socket.on("new_user_joined", (data) => {
-      toast(`${data.Usrname || Someone}  has joined the chat`);
+      toast(`${data.Usrname || "Someone"}  has joined the chat`);
     });
     //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
+    let windowHeight = window.innerHeight;
     if (msgref.current?.lastChild) {
-      msgref.current.lastChild.scrollIntoView();
-      console.log(msgref.current);
+      msgref.current?.lastChild.scrollIntoView() ||
+        window.scrollTo(0, windowHeight * windowHeight);
     }
   }, [msgRec, msgref.current?.lastChild]);
-
   return (
     <>
       {Usrname ? (
-        <>
+        <div className="home-page">
           <ToastContainer />
           <div className="container message-container">
             <div
@@ -54,7 +53,7 @@ const ChatPage = ({ msgRec, pvtmsg, room, setmUserName, socket, Usrname }) => {
                   })}
             </div>
           </div>
-        </>
+        </div>
       ) : (
         <LoginPage setmUserName={setmUserName} />
       )}
