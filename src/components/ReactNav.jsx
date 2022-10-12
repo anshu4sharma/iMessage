@@ -5,22 +5,11 @@ import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
-  const [userName, setUserName] = useState("");
-  const [show, setShow] = useState(false);
+import Badge from "react-bootstrap/Badge";
+function ReactNav({ room, setRoom, joinRoom, userCount }) {
   const [showRoom, setshowRoom] = useState(false);
-
-  const handleClose = () => setShow(false);
   const handleRoomClose = () => setshowRoom(false);
-  // const handleShow = () => setShow(true);
   const handleshowRoom = () => setshowRoom(true);
-
-  const formSubmit = (e) => {
-    e.preventDefault();
-    localStorage.setItem("userName", userName);
-    setmUserName(userName);
-    handleClose();
-  };
   const roomSubmit = (e) => {
     e.preventDefault();
     joinRoom();
@@ -58,47 +47,22 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
   }
   return (
     <>
-      {show ? (
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Enter You Name</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form onSubmit={formSubmit} className="grid my-2">
-              <Form.Group className="mb-3" controlId="userName">
-                <Form.Label>Please Enter you name</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  placeholder="Type here ..."
-                />
-                <Form.Text className="text-muted">
-                  We'll never share your details with anyone else.
-                </Form.Text>
-              </Form.Group>
-              <Button variant="success" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </Modal.Body>
-        </Modal>
-      ) : (
-        <Navbar bg="transparent">
-          <Container>
-            <Nav className="me-auto">
-              <Nav.Link href="#">
-                {room !== "" ? (
-                  <Button variant="outline-secondary">You are inside {room}</Button>
-                ) : (
-                  <Button variant="outline-secondary " onClick={handleshowRoom}>
-                    Join Room
-                    <span className="visually-hidden">unread messages</span>
-                  </Button>
-                )}
-              </Nav.Link>
-              {/* <Nav.Link href="#">
+      <Navbar bg="transparent">
+        <Container>
+          <Nav className="me-auto">
+            <Nav.Link href="#">
+              {room !== "" ? (
+                <Button variant="outline-secondary">
+                  You are inside {room}
+                </Button>
+              ) : (
+                <Button variant="outline-secondary " onClick={handleshowRoom}>
+                  Join Room
+                  <span className="visually-hidden">unread messages</span>
+                </Button>
+              )}
+            </Nav.Link>
+            {/* <Nav.Link href="#">
                 <Button onClick={handleShow} variant="success">
                   <Badge bg="secondary">
                     Change Name
@@ -111,8 +75,10 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
                   </Badge>
                 </Button>
               </Nav.Link> */}
-              {room !== "" && (
-                <Nav.Link href="#">
+
+            {room !== "" ? (
+              <>
+                <Nav.Link>
                   <Button
                     onClick={() => setshowRoom(true)}
                     variant="outline-secondary"
@@ -126,11 +92,22 @@ function ReactNav({ setmUserName, room, setRoom, joinRoom }) {
                     </span>
                   </Button>
                 </Nav.Link>
-              )}
-            </Nav>
-          </Container>
-        </Navbar>
-      )}
+              </>
+            ) : (
+              <>
+                {userCount > 1 && (
+                  <Button variant="outline-secondary">
+                    <span>Online</span>
+                    <Badge className="mx-2" bg="success">
+                      {userCount - 1}
+                    </Badge>
+                  </Button>
+                )}
+              </>
+            )}
+          </Nav>
+        </Container>
+      </Navbar>
     </>
   );
 }

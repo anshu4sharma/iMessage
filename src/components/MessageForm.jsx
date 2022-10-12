@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 const MessageForm = ({
@@ -10,6 +10,7 @@ const MessageForm = ({
   Usrname,
   socket,
 }) => {
+  const msgInput = useRef(null);
   const appendElem = () => {
     const para = document.createElement("p");
     const text = document.createTextNode(msg);
@@ -28,6 +29,7 @@ const MessageForm = ({
       sendPvtMsg();
     }
     appendElem();
+    msgInput.current.focus();
   };
   useEffect(() => {
     socket.emit("user_joined", { Usrname });
@@ -44,6 +46,7 @@ const MessageForm = ({
           value={msg}
           onChange={(e) => setMsg(e.target.value)}
           placeholder="Message"
+          ref={msgInput}
         />
         <Button type="submit" variant="success send-message">
           <span className="material-symbols-outlined">send</span>

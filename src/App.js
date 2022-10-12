@@ -3,9 +3,9 @@ import io from "socket.io-client";
 import ChatPage from "./components/ChatPage";
 import MessageForm from "./components/MessageForm";
 import ReactNav from "./components/ReactNav";
+import Sound from "./assets/Sounds/notification.mp3";
 //  it's import to initialize it here
 // const socket = io("https://socket-server-gh87.onrender.com");
-import Sound from "./assets/Sounds/notification.mp3";
 const socket = io("https://socket-io-server-production.up.railway.app");
 // const socket = io("http://localhost:5000");
 function App() {
@@ -15,6 +15,7 @@ function App() {
   const [pvtmsg, setpvtmsg] = useState([]);
   let UserName = localStorage?.getItem("userName") ?? "";
   const [Usrname, setmUserName] = useState(UserName);
+  const [userCount, setUserCount] = useState(0);
   const audio = new Audio(Sound);
   const submitData = async (msg, userName) => {
     const url =
@@ -51,6 +52,10 @@ function App() {
       setpvtmsg((prev) => [...prev, data]);
     });
 
+    socket.on("userCount", (data) => {
+      setUserCount(data);
+    });
+
     // eslint-disable-next-line
   }, [socket]);
   const postData = async () => {
@@ -79,6 +84,7 @@ function App() {
         setRoom={setRoom}
         joinRoom={joinRoom}
         setmUserName={setmUserName}
+        userCount={userCount}
       />
       <div className="home-page">
         <ChatPage
