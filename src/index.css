@@ -24,15 +24,16 @@ body {
 footer {
   position: fixed;
   width: 100%;
-  bottom: 0;
+  bottom: 0.5rem;
   text-align: center;
+  background-color: white;
 }
 
 .message-form {
-  display: grid;
-  grid-template-columns: 6fr 1fr;
-  place-content: center;
+  display: flex;
   gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .send-message {
