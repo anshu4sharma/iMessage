@@ -4,8 +4,8 @@ import ChatPage from "./components/ChatPage";
 import MessageForm from "./components/MessageForm";
 import ReactNav from "./components/ReactNav";
 import Sound from "./assets/Sounds/notification.mp3";
+import LoginPage from "./components/LoginPage";
 //  it's import to initialize it here
-// const socket = io("https://socket-server-gh87.onrender.com");
 const socket = io("https://socket-io-server-production.up.railway.app");
 // const socket = io("http://localhost:5000");
 function App() {
@@ -79,31 +79,37 @@ function App() {
 
   return (
     <>
-      <ReactNav
-        room={room}
-        setRoom={setRoom}
-        joinRoom={joinRoom}
-        setmUserName={setmUserName}
-        userCount={userCount}
-      />
-        <ChatPage
-          room={room}
-          setmUserName={setmUserName}
-          setRoom={setRoom}
-          msgRec={msgRec}
-          pvtmsg={pvtmsg}
-          socket={socket}
-          Usrname={Usrname}
-        />
-      <MessageForm
-        msg={msg}
-        Usrname={Usrname}
-        sendPvtMsg={sendPvtMsg}
-        sendMsg={sendMsg}
-        setMsg={setMsg}
-        room={room}
-        socket={socket}
-      />
+      {!UserName ? (
+        <LoginPage   setmUserName={setmUserName} />
+      ) : (
+        <>
+          <ReactNav
+            room={room}
+            setRoom={setRoom}
+            joinRoom={joinRoom}
+            setmUserName={setmUserName}
+            userCount={userCount}
+          />
+          <ChatPage
+            room={room}
+            setmUserName={setmUserName}
+            setRoom={setRoom}
+            msgRec={msgRec}
+            pvtmsg={pvtmsg}
+            socket={socket}
+            Usrname={Usrname}
+          />
+          <MessageForm
+            msg={msg}
+            Usrname={Usrname}
+            sendPvtMsg={sendPvtMsg}
+            sendMsg={sendMsg}
+            setMsg={setMsg}
+            room={room}
+            socket={socket}
+          />
+        </>
+      )}
     </>
   );
 }

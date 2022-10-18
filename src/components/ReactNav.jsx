@@ -1,4 +1,3 @@
-import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
@@ -6,6 +5,8 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Badge from "react-bootstrap/Badge";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 function ReactNav({ room, setRoom, joinRoom, userCount }) {
   const [showRoom, setshowRoom] = useState(false);
   const handleRoomClose = () => setshowRoom(false);
@@ -48,65 +49,42 @@ function ReactNav({ room, setRoom, joinRoom, userCount }) {
   return (
     <>
       <Navbar bg="transparent">
-        <Container>
-          <Nav className="me-auto">
-            <Nav.Link href="#">
-              {room !== "" ? (
-                <Button variant="outline-secondary">
-                  You are inside {room}
-                </Button>
-              ) : (
-                <Button variant="outline-secondary " onClick={handleshowRoom}>
-                  Join Room
-                  <span className="visually-hidden">unread messages</span>
-                </Button>
-              )}
-            </Nav.Link>
-            {/* <Nav.Link href="#">
-                <Button onClick={handleShow} variant="success">
-                  <Badge bg="secondary">
-                    Change Name
-                    <span
-                      style={{ fontSize: "16px", padding: "0 8px " }}
-                      className="material-symbols-outlined"
-                    >
-                      edit
-                    </span>
-                  </Badge>
-                </Button>
-              </Nav.Link> */}
-
+        <Nav className="me-auto">
+          <Nav.Link href="#">
             {room !== "" ? (
-              <>
-                <Nav.Link>
-                  <Button
-                    onClick={() => setshowRoom(true)}
-                    variant="outline-secondary"
-                  >
-                    Change Room
-                    <span
-                      style={{ fontSize: "16px", padding: "0 8px " }}
-                      className="material-symbols-outlined"
-                    >
-                      edit
-                    </span>
-                  </Button>
-                </Nav.Link>
-              </>
+              <OverlayTrigger
+                placement="bottom"
+                overlay={
+                  <Tooltip id="button-tooltip-2">
+                    You are inside Room {room}
+                  </Tooltip>
+                }
+              >
+                <Button variant="outline-secondary">{room}</Button>
+              </OverlayTrigger>
             ) : (
-              <>
-                {userCount > 1 && (
-                  <Button variant="outline-secondary">
-                    <span>Online</span>
-                    <Badge className="mx-2" bg="success">
-                      {userCount - 1}
-                    </Badge>
-                  </Button>
-                )}
-              </>
+              <Button variant="outline-secondary " onClick={handleshowRoom}>
+                Join Room
+                <span className="visually-hidden">unread messages</span>
+              </Button>
             )}
-          </Nav>
-        </Container>
+          </Nav.Link>
+          {userCount > 1 && (
+            <Button variant="outline-secondary">
+              <span>Online</span>
+              <Badge className="mx-2" bg="success">
+                {userCount - 1}
+              </Badge>
+            </Button>
+          )}
+          {room !== "" && (
+            <>
+              <Nav.Link href="/">
+                <Button variant="outline-secondary">Exit Room</Button>
+              </Nav.Link>
+            </>
+          )}
+        </Nav>
       </Navbar>
     </>
   );
