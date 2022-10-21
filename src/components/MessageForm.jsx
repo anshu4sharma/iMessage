@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Input, Container } from "@nextui-org/react";
 import { SendButton } from "./SendButton.jsx";
 import { SendIcon } from "./SendIcon.jsx";
@@ -8,8 +8,6 @@ const MessageForm = ({
   setMsg,
   room,
   sendPvtMsg,
-  Usrname,
-  socket,
 }) => {
   const msgInput = useRef(null);
   const appendElem = () => {
@@ -32,10 +30,6 @@ const MessageForm = ({
     appendElem();
     msgInput.current.focus();
   };
-  useEffect(() => {
-    socket.emit("user_joined", { Usrname });
-    // eslint-disable-next-line
-  }, []);
   return (
     <footer>
       <Container>

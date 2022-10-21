@@ -33,7 +33,7 @@ export default function NavbarReact({ room, setRoom, joinRoom, userCount ,Usrnam
   };
   return (
     <>
-      <Navbar isBordered variant="sticky">
+      <Navbar isBordered>
         <Navbar.Brand>
           <Navbar.Toggle aria-label="toggle navigation" />
           <AcmeLogo />

@@ -36,10 +36,6 @@ footer {
   align-items: center;
 }
 
-.nextui-c-iwmZdB-iiIdOsz-css {
-  width: 100%;
-}
-
 .send-message {
   border-radius: 50%;
   display: flex;
@@ -126,12 +122,8 @@ li {
   touch-action: manipulation;
   width: 100%;
 }
-.navbar-expand .navbar-nav {
-  align-items: center;
-}
 
-
-.loginpage{
+.loginpage {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,4 +132,8 @@ li {
   height: 100vh;
   width: 100%;
   background-repeat: no-repeat;
+}
+
+.message-form > div {
+  width: 100%;
 }

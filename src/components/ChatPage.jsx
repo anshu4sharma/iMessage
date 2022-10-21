@@ -1,21 +1,7 @@
 import React, { useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import { useRef } from "react";
-
-const ChatPage = ({ msgRec, pvtmsg, room, socket }) => {
+const ChatPage = ({ msgRec, pvtmsg, room }) => {
   const msgref = useRef();
-  useEffect(() => {
-    socket.on("user_left", () => {
-      // toast(`Someone had left the chat !`);
-    });
-  }, [socket]);
-  useEffect(() => {
-    socket.on("new_user_joined", (data) => {
-      // toast(`${data.Usrname || "Someone"}  has joined the chat`);
-    });
-    //eslint-disable-next-line
-  }, []);
-
   useEffect(() => {
     let windowHeight = window.innerHeight;
     if (msgref.current?.lastChild) {
@@ -26,7 +12,6 @@ const ChatPage = ({ msgRec, pvtmsg, room, socket }) => {
   return (
     <>
       <div className="home-page">
-        <ToastContainer />
         <div className="container message-container">
           <div
             ref={msgref}
