@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Input, Container } from "@nextui-org/react";
+import { SendButton } from "./SendButton.jsx";
+import { SendIcon } from "./SendIcon.jsx";
 const MessageForm = ({
   msg,
   sendMsg,
@@ -37,21 +38,25 @@ const MessageForm = ({
   }, []);
   return (
     <footer>
-      <Form onSubmit={formSubmit} className="grid my-2 mx-4 message-form">
-        <Form.Control
-          as="textarea"
-          rows={1}
-          required
-          autoComplete="off"
-          value={msg}
-          onChange={(e) => setMsg(e.target.value)}
-          placeholder="Message"
-          ref={msgInput}
-        />
-        <Button type="submit" variant="success send-message">
-          <span className="material-symbols-outlined">send</span>
-        </Button>
-      </Form>
+      <Container>
+        <form onSubmit={formSubmit} className="grid my-2  message-form">
+          <Input
+            clearable
+            contentRightStyling={false}
+            placeholder="Type your message..."
+            contentRight={
+              <SendButton>
+                <SendIcon />
+              </SendButton>
+            }
+            required
+            autoComplete="off"
+            value={msg}
+            onChange={(e) => setMsg(e.target.value)}
+            ref={msgInput}
+          />
+        </form>
+      </Container>
     </footer>
   );
 };
