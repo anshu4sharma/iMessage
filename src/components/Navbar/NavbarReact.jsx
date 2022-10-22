@@ -5,11 +5,17 @@ import {
   Link,
   Text,
   Input,
-  Avatar
+  Avatar,
 } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo.jsx";
 import React, { useState } from "react";
-export default function NavbarReact({ room, setRoom, joinRoom, userCount ,Usrname}) {
+export default function NavbarReact({
+  room,
+  setRoom,
+  joinRoom,
+  userCount,
+  Usrname,
+}) {
   const collapseItems = [
     "Features",
     "Pricing",
@@ -50,7 +56,7 @@ export default function NavbarReact({ room, setRoom, joinRoom, userCount ,Usrnam
           <Navbar.Link href="#">About Us</Navbar.Link>
         </Navbar.Content>
         <Navbar.Content>
-          {room.length > 4 ? (
+          {room.length > 3 ? (
             <Navbar.Item>
               <Button auto flat as={Link} href="#">
                 {room}
@@ -64,8 +70,8 @@ export default function NavbarReact({ room, setRoom, joinRoom, userCount ,Usrnam
             </Navbar.Item>
           )}
           <Navbar.Item>
-            <Avatar pointer text={Usrname.slice(0,1).toUpperCase()} stacked />
-            </Navbar.Item>
+            <Avatar pointer text={Usrname.slice(0, 1).toUpperCase()} stacked />
+          </Navbar.Item>
         </Navbar.Content>
         <Navbar.Collapse>
           {collapseItems.map((item, index) => (
