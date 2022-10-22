@@ -6,10 +6,9 @@ import Sound from "./assets/Sounds/notification.mp3";
 import LoginPage from "./components/LoginPage";
 import NavbarReact from "./components/Navbar/NavbarReact";
 //  it's import to initialize it here
-// const socket = io("https://socket-io-server-production.up.railway.app");
+const socket = io("https://socket-io-server-production.up.railway.app");
 // const socket = io("http://localhost:5000");
-// const socket = io("https://socket-server-sq5h.onrender.com");
-const socket = io("https://socketserver.adaptable.app");
+// const socket = io("https://socketserver.adaptable.app");
 function App() {
   const [msg, setMsg] = useState("");
   const [room, setRoom] = useState("");
