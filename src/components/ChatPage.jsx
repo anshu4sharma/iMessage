@@ -5,8 +5,8 @@ const ChatPage = ({ msgRec, pvtmsg, room }) => {
   useEffect(() => {
     let windowHeight = window.innerHeight;
     if (msgref.current?.lastChild) {
-      msgref.current?.lastChild.scrollIntoView() ||
-        window.scrollTo(0, windowHeight * windowHeight);
+      msgref.current?.lastChild.scrollIntoView();
+      window.scrollTo(0, windowHeight * windowHeight);
     }
   }, [msgRec, msgref.current?.lastChild]);
   return (
