@@ -4,7 +4,13 @@ import ChatPage from "./components/ChatPage";
 import MessageForm from "./components/MessageForm";
 import Sound from "./assets/Sounds/notification.mp3";
 import LoginPage from "./components/LoginPage";
+import SignUp from "./components/SignUp";
+import Home from "./Home";
+import { Routes, Route } from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
+
 import NavbarReact from "./components/Navbar/NavbarReact";
+import VerifyOtp from "./components/VerifyOtp";
 //  it's import to initialize it here
 const socket = io("https://socket-io-server-production.up.railway.app");
 // const socket = io("http://localhost:5000");
@@ -14,7 +20,7 @@ function App() {
   const [room, setRoom] = useState("");
   const [msgRec, setmsgRec] = useState([]);
   const [pvtmsg, setpvtmsg] = useState([]);
-  let UserName = localStorage?.getItem("userName") ?? "";
+  let UserName = sessionStorage?.getItem("userName") ?? "";
   const [Usrname, setmUserName] = useState(UserName);
   const [userCount, setUserCount] = useState(0);
   const audio = new Audio(Sound);
@@ -28,14 +34,14 @@ function App() {
   };
   useEffect(() => {
     socket.on("received_msg", async (data) => {
-      audio.play();
       // this will braodcast message to other open another window to see result
-      setmsgRec((prev) => [...prev, data]);
+      await setmsgRec((prev) => [...prev, data]);
+      await audio.play();
     });
-    socket.on("pvt_received_msg", (data) => {
-      audio.play();
+    socket.on("pvt_received_msg", async (data) => {
       // this will braodcast message to other open another window to see result
-      setpvtmsg((prev) => [...prev, data]);
+      await setpvtmsg((prev) => [...prev, data]);
+      await audio.play();
     });
     socket.on("userCount", (data) => {
       setUserCount(data);
@@ -51,38 +57,46 @@ function App() {
 
   return (
     <>
-      {!UserName ? (
-        <LoginPage  setmUserName={setmUserName} />
-      ) : (
-        <>
-          <NavbarReact
-            room={room}
-            setRoom={setRoom}
-            joinRoom={joinRoom}
-            setmUserName={setmUserName}
-            userCount={userCount}
-            Usrname={Usrname}
-          />
-          <ChatPage
-            room={room}
-            setmUserName={setmUserName}
-            setRoom={setRoom}
-            msgRec={msgRec}
-            pvtmsg={pvtmsg}
-            socket={socket}
-            Usrname={Usrname}
-          />
-          <MessageForm
-            msg={msg}
-            Usrname={Usrname}
-            sendPvtMsg={sendPvtMsg}
-            sendMsg={sendMsg}
-            setMsg={setMsg}
-            room={room}
-            socket={socket}
-          />
-        </>
-      )}
+      <LoadingBar color="#2998ff" height={'6px'} progress={100} onLoaderFinished={0} />
+      <Routes>
+        <Route path="/" element={<LoginPage setmUserName={setmUserName} />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/verify" element={<VerifyOtp />} />
+        <Route path="*" element={<LoginPage setmUserName={setmUserName} />} />
+        <Route
+          path="/chat"
+          element={
+            <Home>
+              <NavbarReact
+                room={room}
+                setRoom={setRoom}
+                joinRoom={joinRoom}
+                setmUserName={setmUserName}
+                userCount={userCount}
+                Usrname={Usrname}
+              />
+              <ChatPage
+                room={room}
+                setmUserName={setmUserName}
+                setRoom={setRoom}
+                msgRec={msgRec}
+                pvtmsg={pvtmsg}
+                socket={socket}
+                Usrname={Usrname}
+              />
+              <MessageForm
+                msg={msg}
+                Usrname={Usrname}
+                sendPvtMsg={sendPvtMsg}
+                sendMsg={sendMsg}
+                setMsg={setMsg}
+                room={room}
+                socket={socket}
+              />
+            </Home>
+          }
+        />
+      </Routes>
     </>
   );
 }

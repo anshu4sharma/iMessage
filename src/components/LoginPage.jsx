@@ -8,15 +8,20 @@ import {
   Loading,
 } from "@nextui-org/react";
 import { Mail } from "./Mail";
+import { useNavigate } from "react-router-dom";
 import { Password } from "./Password";
 function LoginPage({ setmUserName }) {
   const [userName, setUsername] = useState("");
   const loginasGuest = () => {
-    localStorage.setItem("userName", userName);
+    sessionStorage.setItem("userName", userName);
     setmUserName(userName);
   };
-
+  const navigate = useNavigate();
+  let IsLoggedin = localStorage.getItem("IsLoggedin");
   const [isGuestUser, setisGuestUser] = useState(false);
+  if (IsLoggedin) {
+    navigate("/chat");
+  }
   return (
     <div className="loginpage">
       <Container>
@@ -37,6 +42,7 @@ function LoginPage({ setmUserName }) {
             {isGuestUser ? (
               <>
                 <Input
+                  aria-label="name"
                   clearable
                   label="Name"
                   placeholder="Enter your name"
@@ -53,6 +59,7 @@ function LoginPage({ setmUserName }) {
             ) : (
               <>
                 <Input
+                  aria-label="email"
                   clearable
                   bordered
                   fullWidth
@@ -64,6 +71,7 @@ function LoginPage({ setmUserName }) {
                   className="my-2"
                 />
                 <Input
+                  aria-label="password"
                   clearable
                   bordered
                   fullWidth
@@ -78,23 +86,19 @@ function LoginPage({ setmUserName }) {
             )}
           </Card.Body>
           <Card.Footer className="gap-2">
-            {!isGuestUser ? (
-              <>
-                <Button auto>Sign in</Button>
-                <Button auto>
-                  <Loading type="points" color="currentColor" size="sm" />
-                </Button>
-              </>
-            ) : (
-              <Button
-                auto
-                disabled={userName.length < 4}
-                onClick={loginasGuest}
-              >
-                Continue as Guest!
+            <>
+              <Button bordered color="gradient" auto>
+                Login
               </Button>
-            )}
-
+              <Button
+                bordered
+                color="gradient"
+                auto
+                onClick={() => navigate("signup")}
+              >
+                Create Account
+              </Button>
+            </>
             <Button
               onClick={() => setisGuestUser(!isGuestUser)}
               auto

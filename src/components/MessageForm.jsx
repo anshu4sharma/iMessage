@@ -2,13 +2,7 @@ import React, { useRef } from "react";
 import { Input, Container } from "@nextui-org/react";
 import { SendButton } from "./SendButton.jsx";
 import { SendIcon } from "./SendIcon.jsx";
-const MessageForm = ({
-  msg,
-  sendMsg,
-  setMsg,
-  room,
-  sendPvtMsg,
-}) => {
+const MessageForm = ({ msg, sendMsg, setMsg, room, sendPvtMsg }) => {
   const msgInput = useRef(null);
   const appendElem = () => {
     const para = document.createElement("p");
@@ -39,15 +33,18 @@ const MessageForm = ({
             contentRightStyling={false}
             placeholder="Type your message..."
             contentRight={
-              <SendButton>
+              <SendButton disabled={msg.length < 1}>
                 <SendIcon />
               </SendButton>
             }
+            aria-label="send-sms"
             required
             autoComplete="off"
             value={msg}
             onChange={(e) => setMsg(e.target.value)}
             ref={msgInput}
+            size="lg"
+            fullWidth
           />
         </form>
       </Container>

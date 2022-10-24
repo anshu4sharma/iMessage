@@ -58,18 +58,18 @@ export default function NavbarReact({
         <Navbar.Content>
           {room.length > 3 ? (
             <Navbar.Item>
-              <Button auto flat as={Link} href="#">
+              <Button auto flat >
                 {room}
               </Button>
             </Navbar.Item>
           ) : (
             <Navbar.Item>
-              <Button onPress={handler} auto flat as={Link} href="#">
+              <Button onPress={handler} auto flat>
                 Join room
               </Button>
             </Navbar.Item>
           )}
-          <Navbar.Item>
+          <Navbar.Item >
             <Avatar pointer text={Usrname.slice(0, 1).toUpperCase()} stacked />
           </Navbar.Item>
         </Navbar.Content>
@@ -93,13 +93,13 @@ export default function NavbarReact({
         <Modal
           blur
           closeButton
-          preventClose
-          aria-labelledby="modal-title"
+          aria-labelledby="submitroom"
+          fullScreen
           open={visible}
           onClose={closeHandler}
         >
           <Modal.Header>
-            <Text b id="modal-title" size={18}>
+            <Text b id="submitroom" size={18}>
               Enter your Room Id
             </Text>
           </Modal.Header>
@@ -114,18 +114,22 @@ export default function NavbarReact({
                 placeholder="Room Id"
                 required
                 value={room}
+                className="my-3"
                 onChange={(e) => setRoom(e.target.value)}
-              />
+                aria-label="join-room"
+                />
+
+              {room.length < 4 && (
+                <Text  small color="default" weight={"light"}>
+                  Room id must be uniq and should be or at least of 4 Characters
+                </Text>
+              )}
+              
+              <Button className="my-3" disabled={room.length < 4} auto onClick={closeHandler}>
+                Join room
+              </Button>
             </form>
-            {room.length < 4 && (
-              <Text color="error">Room id must be at least 4 Characters</Text>
-            )}
           </Modal.Body>
-          <Modal.Footer>
-            <Button disabled={room.length < 4} auto onClick={closeHandler}>
-              Join room
-            </Button>
-          </Modal.Footer>
         </Modal>
       </div>
     </>
