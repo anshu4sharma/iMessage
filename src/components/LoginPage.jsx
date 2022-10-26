@@ -1,27 +1,46 @@
-import React, { useState } from "react";
-import {
-  Button,
-  Card,
-  Input,
-  Container,
-  Text,
-  Loading,
-} from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Button, Card, Input, Container, Text, Row } from "@nextui-org/react";
 import { Mail } from "./Mail";
 import { useNavigate } from "react-router-dom";
 import { Password } from "./Password";
-function LoginPage({ setmUserName }) {
-  const [userName, setUsername] = useState("");
-  const loginasGuest = () => {
-    sessionStorage.setItem("userName", userName);
-    setmUserName(userName);
-  };
+import { useFormik } from "formik";
+function LoginPage() {
   const navigate = useNavigate();
   let IsLoggedin = localStorage.getItem("IsLoggedin");
   const [isGuestUser, setisGuestUser] = useState(false);
-  if (IsLoggedin) {
-    navigate("/chat");
-  }
+  const [iserror, setIserror] = useState(false);
+  const fetchData = async () => {
+    let data = await axios({
+      method: "post",
+      url: "https://userapi.azurewebsites.net/users/login",
+      headers: { "Content-Type": "application/json" },
+      data: { email: values.email, password: values.password },
+    });
+
+    if (data.data.authToken !== undefined || null) {
+      localStorage.setItem("authtoken", data.data.authToken);
+      localStorage.setItem("IsLoggedin", true);
+      navigate("/chat");
+    } else {
+      setIserror(true);
+    }
+  };
+  const { handleSubmit, values, handleChange } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: () => {
+      fetchData();
+    },
+  });
+  let authToken = localStorage.getItem("authtoken");
+  useEffect(() => {
+    if (IsLoggedin || authToken) {
+      navigate("/chat");
+    }
+  }, []);
   return (
     <div className="loginpage">
       <Container>
@@ -39,79 +58,64 @@ function LoginPage({ setmUserName }) {
             </Text>
           </Card.Header>
           <Card.Body>
-            {isGuestUser ? (
-              <>
-                <Input
-                  aria-label="name"
-                  clearable
-                  label="Name"
-                  placeholder="Enter your name"
-                  required
-                  type="text"
-                  color="primary"
-                  size="lg"
-                  bordered
-                  fullWidth
-                  value={userName}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </>
-            ) : (
-              <>
-                <Input
-                  aria-label="email"
-                  clearable
-                  bordered
-                  fullWidth
-                  required
-                  color="primary"
-                  size="lg"
-                  placeholder="Email"
-                  contentLeft={<Mail fill="currentColor" />}
-                  className="my-2"
-                />
-                <Input
-                  aria-label="password"
-                  clearable
-                  bordered
-                  fullWidth
-                  required
-                  color="primary"
-                  size="lg"
-                  className="my-2"
-                  placeholder="Password"
-                  contentLeft={<Password fill="currentColor" />}
-                />
-              </>
-            )}
-          </Card.Body>
-          <Card.Footer className="gap-2">
-            <>
-              <Button bordered color="gradient" auto>
-                Login
-              </Button>
-              <Button
+            <form onSubmit={handleSubmit}>
+              <Input
+                aria-label="email"
                 bordered
-                color="gradient"
-                auto
-                onClick={() => navigate("signup")}
-              >
-                Create Account
-              </Button>
-            </>
-            <Button
-              onClick={() => setisGuestUser(!isGuestUser)}
-              auto
-              bordered
-              color="gradient"
-            >
-              {isGuestUser ? (
-                <span> Login as User </span>
-              ) : (
-                <span> Login as Guest </span>
+                fullWidth
+                required
+                color="primary"
+                size="lg"
+                placeholder="Email"
+                contentLeft={<Mail fill="currentColor" />}
+                value={values.email}
+                className="my-2"
+                onChange={handleChange}
+                name="email"
+                autoComplete="true"
+              />
+              <Input.Password
+                aria-label="password"
+                autoComplete="true"
+                bordered
+                fullWidth
+                required
+                color="primary"
+                size="lg"
+                name="password"
+                className="my-2"
+                placeholder="Password"
+                onChange={handleChange}
+                value={values.password}
+                contentLeft={<Password fill="currentColor" />}
+              />
+              {iserror && (
+                <Row>
+                  <Text color="error">Please enter valid credentials</Text>
+                </Row>
               )}
-            </Button>
-          </Card.Footer>
+              <Row>
+                <Button
+                  className="my-3 w-75 mx-2"
+                  bordered
+                  color="gradient"
+                  type="submit"
+                  auto
+                >
+                  Login
+                </Button>
+                <Button
+                  className="my-3 w-75 mx-2"
+                  bordered
+                  color="gradient"
+                  auto
+                  onClick={() => navigate("signup")}
+                >
+                  Create Account
+                </Button>
+              </Row>
+            </form>
+          </Card.Body>
         </Card>
       </Container>
     </div>

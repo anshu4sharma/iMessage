@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
 import { useRef } from "react";
-import LoadingBar from 'react-top-loading-bar'
-
-// import { Text } from "@nextui-org/react";
 const ChatPage = ({ msgRec, pvtmsg, room }) => {
   const msgref = useRef();
   const scrolltoView = () => {
@@ -24,20 +21,6 @@ const ChatPage = ({ msgRec, pvtmsg, room }) => {
             className="my-1 msg-container"
             id="message-container-child"
           >
-            {/* <Text
-              small
-              css={{
-                borderRadius: "$xs", // radii.xs
-                border: "$space$1 solid transparent",
-                height: "$12", // space[12]
-                boxShadow: "$md", // shadows.md
-                display: "flex",
-                justifyContent: "center",
-              }}
-              weight="light"
-            >
-              Anshu had left the Chat
-            </Text> */}
             {room === ""
               ? msgRec.map((data, index) => {
                   return (

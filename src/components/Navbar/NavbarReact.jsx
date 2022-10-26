@@ -8,13 +8,14 @@ import {
   Avatar,
 } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo.jsx";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 export default function NavbarReact({
   room,
   setRoom,
   joinRoom,
-  userCount,
   Usrname,
+  setmUserName,
 }) {
   const collapseItems = [
     "Features",
@@ -37,6 +38,23 @@ export default function NavbarReact({
     await joinRoom();
     await setVisible(false);
   };
+  const authtoken = localStorage.getItem("authtoken");
+  const fetchUserDetails = async () => {
+    let data = await axios({
+      method: "post",
+      url: "https://userapi.azurewebsites.net/users/getuser",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": authtoken,
+      },
+    });
+    setmUserName(data.data.name);
+  };
+  useEffect(() => {
+    if (authtoken !== undefined || null) {
+      fetchUserDetails();
+    }
+  }, []);
   return (
     <>
       <Navbar isBordered>
@@ -58,7 +76,7 @@ export default function NavbarReact({
         <Navbar.Content>
           {room.length > 3 ? (
             <Navbar.Item>
-              <Button auto flat >
+              <Button auto flat>
                 {room}
               </Button>
             </Navbar.Item>
@@ -69,7 +87,7 @@ export default function NavbarReact({
               </Button>
             </Navbar.Item>
           )}
-          <Navbar.Item >
+          <Navbar.Item>
             <Avatar pointer text={Usrname.slice(0, 1).toUpperCase()} stacked />
           </Navbar.Item>
         </Navbar.Content>
@@ -117,15 +135,20 @@ export default function NavbarReact({
                 className="my-3"
                 onChange={(e) => setRoom(e.target.value)}
                 aria-label="join-room"
-                />
+              />
 
               {room.length < 4 && (
-                <Text  small color="default" weight={"light"}>
+                <Text small color="default" weight={"light"}>
                   Room id must be uniq and should be or at least of 4 Characters
                 </Text>
               )}
-              
-              <Button className="my-3" disabled={room.length < 4} auto onClick={closeHandler}>
+
+              <Button
+                className="my-3"
+                disabled={room.length < 4}
+                auto
+                onClick={closeHandler}
+              >
                 Join room
               </Button>
             </form>

@@ -1,34 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Card, Input, Container, Text, Row } from "@nextui-org/react";
 import axios from "axios";
 import { Mail } from "./Mail";
 import { Password } from "./Password";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import LoadingBar from "react-top-loading-bar";
 
-function LoginPage({ setmUserName }) {
+function LoginPage() {
+  const [iserror, setIserror] = useState(false);
   const navigate = useNavigate();
   // https://userdata.onrender.com/
 
-  const deldata = async () => {
-    let data = await axios({
-      method: "delete",
-      url: "https://userapi.cyclic.app/users/6356a9c3373e6a5332a965cd",
-      headers: { "Content-Type": "application/json" },
-    });
-    console.log(data);
-  };
-
-  const fetchData = async () => {
+  const submitForm = async () => {
     let data = await axios({
       method: "post",
-      url: "https://userdata.onrender.com/users",
+      url: "https://userapi.azurewebsites.net/users",
       headers: { "Content-Type": "application/json" },
-      data: { name: values.name, email: values.email, password: values.email },
+      data: {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      },
     });
-    console.log(data);
+    if (data.data == "User Already Exists!") {
+      setIserror(true);
+      navigate("/signup");
+    } else {
+      localStorage.setItem("name", values.name);
+      navigate("/verify", { state: { email: values.email } });
+    }
   };
+
   const { handleSubmit, values, handleChange } = useFormik({
     initialValues: {
       name: "",
@@ -36,8 +38,7 @@ function LoginPage({ setmUserName }) {
       email: "",
     },
     onSubmit: () => {
-      fetchData();
-      navigate("/verify", { state: values.email });
+      submitForm();
     },
   });
 
@@ -93,7 +94,7 @@ function LoginPage({ setmUserName }) {
                   className="my-2"
                   onChange={handleChange}
                 />
-                <Input
+                <Input.Password
                   aria-label="password"
                   bordered
                   value={values.password}
@@ -109,6 +110,13 @@ function LoginPage({ setmUserName }) {
                   contentLeft={<Password fill="currentColor" />}
                   minLength={4}
                 />
+                {iserror && (
+                  <Row>
+                    <Text color="error">
+                      User with email id already exists !
+                    </Text>
+                  </Row>
+                )}
                 <Row className="gap-2">
                   <Button
                     className="my-2"

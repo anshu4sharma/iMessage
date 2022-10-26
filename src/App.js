@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
-import ChatPage from "./components/ChatPage";
-import MessageForm from "./components/MessageForm";
 import Sound from "./assets/Sounds/notification.mp3";
 import LoginPage from "./components/LoginPage";
 import SignUp from "./components/SignUp";
 import Home from "./Home";
 import { Routes, Route } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-
-import NavbarReact from "./components/Navbar/NavbarReact";
 import VerifyOtp from "./components/VerifyOtp";
 //  it's import to initialize it here
-const socket = io("https://socket-io-server-production.up.railway.app");
+// const socket = io("https://socket-io-server-production.up.railway.app");
 // const socket = io("http://localhost:5000");
 // const socket = io("https://socketserver.adaptable.app");
+const socket = io("https://scoket.azurewebsites.net");
 function App() {
   const [msg, setMsg] = useState("");
   const [room, setRoom] = useState("");
   const [msgRec, setmsgRec] = useState([]);
   const [pvtmsg, setpvtmsg] = useState([]);
-  let UserName = sessionStorage?.getItem("userName") ?? "";
+  let UserName = localStorage?.getItem("name") ?? "";
   const [Usrname, setmUserName] = useState(UserName);
   const [userCount, setUserCount] = useState(0);
   const audio = new Audio(Sound);
@@ -57,7 +54,12 @@ function App() {
 
   return (
     <>
-      <LoadingBar color="#2998ff" height={'6px'} progress={100} onLoaderFinished={0} />
+      <LoadingBar
+        color="#2998ff"
+        height={"6px"}
+        progress={100}
+        onLoaderFinished={0}
+      />
       <Routes>
         <Route path="/" element={<LoginPage setmUserName={setmUserName} />} />
         <Route path="/signup" element={<SignUp />} />
@@ -66,34 +68,21 @@ function App() {
         <Route
           path="/chat"
           element={
-            <Home>
-              <NavbarReact
-                room={room}
-                setRoom={setRoom}
-                joinRoom={joinRoom}
-                setmUserName={setmUserName}
-                userCount={userCount}
-                Usrname={Usrname}
-              />
-              <ChatPage
-                room={room}
-                setmUserName={setmUserName}
-                setRoom={setRoom}
-                msgRec={msgRec}
-                pvtmsg={pvtmsg}
-                socket={socket}
-                Usrname={Usrname}
-              />
-              <MessageForm
-                msg={msg}
-                Usrname={Usrname}
-                sendPvtMsg={sendPvtMsg}
-                sendMsg={sendMsg}
-                setMsg={setMsg}
-                room={room}
-                socket={socket}
-              />
-            </Home>
+            <Home
+              room={room}
+              setRoom={setRoom}
+              joinRoom={joinRoom}
+              setmUserName={setmUserName}
+              userCount={userCount}
+              Usrname={Usrname}
+              msgRec={msgRec}
+              pvtmsg={pvtmsg}
+              socket={socket}
+              msg={msg}
+              sendPvtMsg={sendPvtMsg}
+              sendMsg={sendMsg}
+              setMsg={setMsg}
+            />
           }
         />
       </Routes>

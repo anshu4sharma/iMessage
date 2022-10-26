@@ -7,7 +7,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 const VerifyOtp = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
   const { handleSubmit, values, handleChange } = useFormik({
     initialValues: {
       otp: "",
@@ -19,10 +18,10 @@ const VerifyOtp = () => {
   const verifyCode = async () => {
     let data = await axios({
       method: "post",
-      url: "https://userdata.onrender.com/users/verify",
+      url: "https://userapi.azurewebsites.net/users/verify",
       headers: { "Content-Type": "application/json" },
       data: {
-        email: location.state,
+        email: location.state.email,
         otp: values.otp,
       },
     });
@@ -35,7 +34,7 @@ const VerifyOtp = () => {
   };
   // console.log(location);
   let IsLoggedin = localStorage.getItem("IsLoggedin");
-  if (!location.state) {
+  if (!location.state.email) {
     navigate(-1);
   } else if (IsLoggedin) {
     navigate("/chat");
@@ -44,14 +43,14 @@ const VerifyOtp = () => {
     <>
       <div className="loginpage">
         <Container>
-          <Card css={{ p: "$6", mw: "400px" }}>
+          <Card css={{ p: "$4", mw: "400px" }}>
             <Card.Header>
               <Text
                 css={{
                   textGradient: "45deg, $blue600 -20%, $pink600 50%",
                 }}
                 b
-                size={28}
+                size={24}
                 h1
               >
                 Enter the verification code
@@ -69,12 +68,17 @@ const VerifyOtp = () => {
                   color="primary"
                   name="otp"
                   size="lg"
-                  className="my-2"
                   onChange={handleChange}
                   placeholder="Type here ..."
                   contentLeft={<Password fill="currentColor" />}
                 />
-                <Button type="submit" className="my-3">
+                <Button
+                  auto
+                  bordered
+                  color="gradient"
+                  type="submit"
+                  className="my-3 w-100"
+                >
                   Submit
                 </Button>
               </form>

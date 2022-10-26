@@ -122,6 +122,7 @@ li {
   justify-content: center;
   height: 100vh;
   width: 100%;
+  background-image: linear-gradient(19deg, #3eecac 0%, #ee74e1 100%);
 }
 
 .message-form > div {
