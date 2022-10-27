@@ -28,16 +28,12 @@ const VerifyOtp = () => {
     if (data.data === "wrong otp") {
       alert("enter a valid otp");
     } else if (data.data === "Verified") {
-      localStorage.setItem("IsLoggedin", true);
-      navigate("/chat");
+      navigate("/");
     }
   };
   // console.log(location);
-  let IsLoggedin = localStorage.getItem("IsLoggedin");
   if (!location.state.email) {
     navigate(-1);
-  } else if (IsLoggedin) {
-    navigate("/chat");
   }
   return (
     <>

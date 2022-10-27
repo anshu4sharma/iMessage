@@ -7,10 +7,6 @@ import Home from "./Home";
 import { Routes, Route } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import VerifyOtp from "./components/VerifyOtp";
-//  it's import to initialize it here
-// const socket = io("https://socket-io-server-production.up.railway.app");
-// const socket = io("http://localhost:5000");
-// const socket = io("https://socketserver.adaptable.app");
 const socket = io("https://scoket.azurewebsites.net");
 function App() {
   const [msg, setMsg] = useState("");
@@ -64,7 +60,6 @@ function App() {
         <Route path="/" element={<LoginPage setmUserName={setmUserName} />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/verify" element={<VerifyOtp />} />
-        <Route path="*" element={<LoginPage setmUserName={setmUserName} />} />
         <Route
           path="/chat"
           element={
@@ -85,6 +80,7 @@ function App() {
             />
           }
         />
+        <Route path="*" element={<LoginPage setmUserName={setmUserName} />} />
       </Routes>
     </>
   );

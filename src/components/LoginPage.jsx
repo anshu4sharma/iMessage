@@ -8,7 +8,6 @@ import { useFormik } from "formik";
 function LoginPage() {
   const navigate = useNavigate();
   let IsLoggedin = localStorage.getItem("IsLoggedin");
-  const [isGuestUser, setisGuestUser] = useState(false);
   const [iserror, setIserror] = useState(false);
   const fetchData = async () => {
     let data = await axios({
@@ -18,7 +17,7 @@ function LoginPage() {
       data: { email: values.email, password: values.password },
     });
 
-    if (data.data.authToken !== undefined || null) {
+    if (data?.data?.authToken !== undefined || null) {
       localStorage.setItem("authtoken", data.data.authToken);
       localStorage.setItem("IsLoggedin", true);
       navigate("/chat");

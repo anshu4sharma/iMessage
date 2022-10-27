@@ -87,9 +87,15 @@ export default function NavbarReact({
               </Button>
             </Navbar.Item>
           )}
-          <Navbar.Item>
-            <Avatar pointer text={Usrname.slice(0, 1).toUpperCase()} stacked />
-          </Navbar.Item>
+          {Usrname.length > 1 && (
+            <Navbar.Item>
+              <Avatar
+                pointer
+                text={Usrname.slice(0, 1).toUpperCase()}
+                stacked
+              />
+            </Navbar.Item>
+          )}
         </Navbar.Content>
         <Navbar.Collapse>
           {collapseItems.map((item, index) => (
