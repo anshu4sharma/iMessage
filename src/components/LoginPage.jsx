@@ -72,6 +72,7 @@ function LoginPage() {
                 onChange={handleChange}
                 name="email"
                 autoComplete="true"
+                type='email'
               />
               <Input.Password
                 aria-label="password"
