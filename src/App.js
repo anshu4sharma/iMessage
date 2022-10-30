@@ -6,8 +6,8 @@ import Home from "./Home";
 import { Routes, Route } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import VerifyOtp from "./components/VerifyOtp";
-const socket = io("http://localhost:5000");
-// const socket = io("https://scoket.azurewebsites.net");
+// const socket = io("http://localhost:5000");
+const socket = io("https://scoket.azurewebsites.net");
 function App() {
   const [msg, setMsg] = useState("");
   const [room, setRoom] = useState("");
