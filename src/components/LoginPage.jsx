@@ -9,20 +9,26 @@ function LoginPage() {
   const navigate = useNavigate();
   let IsLoggedin = localStorage.getItem("IsLoggedin");
   const [iserror, setIserror] = useState(false);
+  const [isEmailVerified, setisEmailVerified] = useState(false);
   const fetchData = async () => {
-    let data = await axios({
-      method: "post",
-      url: "https://userapi.azurewebsites.net/users/login",
-      headers: { "Content-Type": "application/json" },
-      data: { email: values.email, password: values.password },
-    });
-
-    if (data?.data?.authToken !== undefined || null) {
-      localStorage.setItem("authtoken", data.data.authToken);
-      localStorage.setItem("IsLoggedin", true);
-      navigate("/chat");
-    } else {
-      setIserror(true);
+    try {
+      let data = await axios({
+        method: "post",
+        url: "https://userapi.azurewebsites.net/users/login",
+        headers: { "Content-Type": "application/json" },
+        data: { email: values.email, password: values.password },
+      });
+      if (data?.data?.authToken !== undefined || null) {
+        localStorage.setItem("authtoken", data.data.authToken);
+        localStorage.setItem("IsLoggedin", true);
+        navigate("/chat");
+      }
+    } catch (error) {
+      if (error.response.status === 401) {
+        setisEmailVerified(true)
+      } else {
+        setIserror(true);
+      }
     }
   };
   const { handleSubmit, values, handleChange } = useFormik({
@@ -72,7 +78,7 @@ function LoginPage() {
                 onChange={handleChange}
                 name="email"
                 autoComplete="true"
-                type='email'
+                type="email"
               />
               <Input.Password
                 aria-label="password"
@@ -92,6 +98,13 @@ function LoginPage() {
               {iserror && (
                 <Row>
                   <Text color="error">Please enter valid credentials</Text>
+                </Row>
+              )}
+              {isEmailVerified && (
+                <Row>
+                  <Text color="error">
+                    You have not verified your email.
+                  </Text>
                 </Row>
               )}
               <Row>
