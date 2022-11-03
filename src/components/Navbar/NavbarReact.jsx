@@ -7,7 +7,6 @@ import {
   Input,
   Avatar,
 } from "@nextui-org/react";
-import { AcmeLogo } from "./AcmeLogo.jsx";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 export default function NavbarReact({
@@ -57,22 +56,12 @@ export default function NavbarReact({
   }, []);
   return (
     <>
-      <Navbar isBordered>
+      <Navbar variant={"sticky"}>
         <Navbar.Brand>
-          <Navbar.Toggle aria-label="toggle navigation" />
-          <AcmeLogo />
-          <Text b color="inherit" hideIn="xs">
-            Imessage
+          <Text size={"1.2rem"} b color="primary">
+            iMessage
           </Text>
         </Navbar.Brand>
-        <Navbar.Content enableCursorHighlight hideIn="xs" variant="underline">
-          <Navbar.Link href="#">Features</Navbar.Link>
-          <Navbar.Link isActive href="#">
-            Chat
-          </Navbar.Link>
-          <Navbar.Link href="#">Pricing</Navbar.Link>
-          <Navbar.Link href="#">About Us</Navbar.Link>
-        </Navbar.Content>
         <Navbar.Content>
           {room.length > 3 ? (
             <Navbar.Item>
@@ -122,7 +111,7 @@ export default function NavbarReact({
           open={visible}
           onClose={closeHandler}
         >
-          <Modal.Header>
+          <Modal.Header justify="flex-start">
             <Text b id="submitroom" size={18}>
               Enter your Room Id
             </Text>
@@ -130,7 +119,6 @@ export default function NavbarReact({
           <Modal.Body>
             <form onSubmit={roomSubmit}>
               <Input
-                clearable
                 bordered
                 fullWidth
                 color="primary"
@@ -144,19 +132,19 @@ export default function NavbarReact({
               />
 
               {room.length < 4 && (
-                <Text small color="default" weight={"light"}>
-                  Room id must be uniq and should be or at least of 4 Characters
-                </Text>
+                <Text>Room id must be uniq and at least of 4 Characters.</Text>
               )}
 
-              <Button
-                className="my-3"
-                disabled={room.length < 4}
-                auto
-                onClick={closeHandler}
-              >
-                Join room
-              </Button>
+              <div className="join_roombtn">
+                <Button
+                  className="my-3"
+                  disabled={room.length < 4}
+                  auto
+                  onClick={closeHandler}
+                >
+                  Join room
+                </Button>
+              </div>
             </form>
           </Modal.Body>
         </Modal>
