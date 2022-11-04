@@ -24,7 +24,6 @@ function App() {
     await socket.emit("send_pvt_msg", { msg, room, Usrname });
     setMsg("");
   };
-  console.log(msgRec);
   useEffect(() => {
     socket.on("all_messages", async (data) => {
       setmsgRec(data);

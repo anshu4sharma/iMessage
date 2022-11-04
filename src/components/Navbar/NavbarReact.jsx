@@ -16,14 +16,6 @@ export default function NavbarReact({
   Usrname,
   setmUserName,
 }) {
-  const collapseItems = [
-    "Features",
-    "Pricing",
-    "Team",
-    "Help & Feedback",
-    "Login",
-    "Sign Up",
-  ];
   const roomSubmit = async (e) => {
     e.preventDefault();
     await joinRoom();
@@ -86,21 +78,6 @@ export default function NavbarReact({
             </Navbar.Item>
           )}
         </Navbar.Content>
-        <Navbar.Collapse>
-          {collapseItems.map((item, index) => (
-            <Navbar.CollapseItem key={item}>
-              <Link
-                color="inherit"
-                css={{
-                  minWidth: "100%",
-                }}
-                href="#"
-              >
-                {item}
-              </Link>
-            </Navbar.CollapseItem>
-          ))}
-        </Navbar.Collapse>
       </Navbar>
       <div>
         <Modal
