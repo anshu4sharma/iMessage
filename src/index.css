@@ -71,7 +71,7 @@ li {
 .upcoming-message {
   min-height: 1rem;
   touch-action: manipulation;
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
   display: block;
   width: fit-content;
   color: black;
@@ -95,7 +95,7 @@ li {
 }
 
 .outgoing-msg {
-  padding: 0.4rem 0.8rem;
+  padding: 0 0.8rem;
   display: block;
   color: white;
   touch-action: manipulation;
