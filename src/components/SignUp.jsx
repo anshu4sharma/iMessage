@@ -5,7 +5,8 @@ import { Mail } from "./Mail";
 import { Password } from "./Password";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-
+import char from "../assets/images/char1.svg";
+import signupSchema from "./schema/signupSchema";
 function LoginPage() {
   const [iserror, setIserror] = useState(false);
   const navigate = useNavigate();
@@ -31,12 +32,13 @@ function LoginPage() {
     }
   };
 
-  const { handleSubmit, values, handleChange } = useFormik({
+  const { handleSubmit, values, handleChange, touched, errors } = useFormik({
     initialValues: {
       name: "",
       password: "",
       email: "",
     },
+    validationSchema: signupSchema,
     onSubmit: () => {
       submitForm();
     },
@@ -46,19 +48,10 @@ function LoginPage() {
     <>
       <div className="loginpage">
         <Container>
-          <Card css={{ p: "$6", mw: "400px" }}>
-            <Card.Header>
-              <Text
-                css={{
-                  textGradient: "45deg, $blue600 -20%, $pink600 50%",
-                }}
-                b
-                size={28}
-                h1
-              >
-                Welcome to iMessage
-              </Text>
-            </Card.Header>
+          <Card css={{ p: "$6", mw: "400px", background: "#e5e5f7" , border:"2px solid white" }}>
+            <div className="loginpagechar">
+              <img src={char} alt="char" width={"100"} height="100" />
+            </div>
             <Card.Body>
               <form onSubmit={handleSubmit}>
                 <Input
@@ -69,7 +62,6 @@ function LoginPage() {
                   type="text"
                   color="primary"
                   size="lg"
-                  bordered
                   fullWidth
                   className="my-2"
                   value={values.name}
@@ -77,14 +69,16 @@ function LoginPage() {
                   onChange={handleChange}
                   name="name"
                 />
+
+                {errors.name && touched.name ? (
+                  <Text color="error">{errors.name}</Text>
+                ) : null}
                 <Input
                   aria-label="email"
                   label="Email"
-                  bordered
                   name="email"
                   fullWidth
                   type="email"
-                  required
                   color="primary"
                   size="lg"
                   minLength={5}
@@ -94,12 +88,13 @@ function LoginPage() {
                   className="my-2"
                   onChange={handleChange}
                 />
+                {errors.email && touched.email ? (
+                  <Text color="error">{errors.email}</Text>
+                ) : null}
                 <Input.Password
                   aria-label="password"
-                  bordered
                   value={values.password}
                   fullWidth
-                  required
                   label="Password"
                   color="primary"
                   name="password"
@@ -108,8 +103,10 @@ function LoginPage() {
                   onChange={handleChange}
                   placeholder="Password"
                   contentLeft={<Password fill="currentColor" />}
-                  minLength={4}
                 />
+                {errors.password && touched.password ? (
+                  <Text color="error">{errors.password}</Text>
+                ) : null}
                 {iserror && (
                   <Row>
                     <Text color="error">
@@ -118,23 +115,11 @@ function LoginPage() {
                   </Row>
                 )}
                 <Row className="gap-2">
-                  <Button
-                    className="my-2"
-                    type="submit"
-                    auto
-                    bordered
-                    color="gradient"
-                  >
+                  <Button className="my-2" type="submit" auto bordered>
                     Create Account
                   </Button>
 
-                  <Button
-                    onClick={() => navigate(-1)}
-                    className="my-2 "
-                    auto
-                    bordered
-                    color="gradient"
-                  >
+                  <Button onClick={() => navigate(-1)} className="my-2 " auto>
                     Back to login
                   </Button>
                 </Row>

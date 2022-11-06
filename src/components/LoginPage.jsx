@@ -5,6 +5,8 @@ import { Mail } from "./Mail";
 import { useNavigate } from "react-router-dom";
 import { Password } from "./Password";
 import { useFormik } from "formik";
+import char from "../assets/images/char1.svg";
+import loginSchema from "./schema/loginSchema";
 function LoginPage() {
   const navigate = useNavigate();
   let IsLoggedin = localStorage.getItem("IsLoggedin");
@@ -25,17 +27,18 @@ function LoginPage() {
       }
     } catch (error) {
       if (error.response.status === 401) {
-        setisEmailVerified(true)
+        setisEmailVerified(true);
       } else {
         setIserror(true);
       }
     }
   };
-  const { handleSubmit, values, handleChange } = useFormik({
+  const { handleSubmit, values, handleChange, errors, touched } = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
+    validationSchema: loginSchema,
     onSubmit: () => {
       fetchData();
     },
@@ -49,26 +52,16 @@ function LoginPage() {
   return (
     <div className="loginpage">
       <Container>
-        <Card css={{ p: "$6", mw: "400px" }}>
-          <Card.Header>
-            <Text
-              css={{
-                textGradient: "45deg, $blue600 -20%, $pink600 50%",
-              }}
-              b
-              size={28}
-              h1
-            >
-              Welcome to iMessage
-            </Text>
-          </Card.Header>
+        <Card css={{ p: "$6", mw: "400px", background: "#e5e5f7",border:"2px solid white" }}>
+          <div className="loginpagechar">
+            <img src={char} alt="char" width={"100"} height="100" />
+          </div>
           <Card.Body>
             <form onSubmit={handleSubmit}>
               <Input
                 aria-label="email"
-                bordered
+                label="Login"
                 fullWidth
-                required
                 color="primary"
                 size="lg"
                 placeholder="Email"
@@ -80,12 +73,14 @@ function LoginPage() {
                 autoComplete="true"
                 type="email"
               />
+
+              {errors.email && touched.email ? (
+                <Text color="error">{errors.email}</Text>
+              ) : null}
               <Input.Password
                 aria-label="password"
                 autoComplete="true"
-                bordered
                 fullWidth
-                required
                 color="primary"
                 size="lg"
                 name="password"
@@ -95,6 +90,10 @@ function LoginPage() {
                 value={values.password}
                 contentLeft={<Password fill="currentColor" />}
               />
+
+              {errors.password && touched.password ? (
+                <Text color="error">{errors.password}</Text>
+              ) : null}
               {iserror && (
                 <Row>
                   <Text color="error">Please enter valid credentials</Text>
@@ -102,25 +101,16 @@ function LoginPage() {
               )}
               {isEmailVerified && (
                 <Row>
-                  <Text color="error">
-                    You have not verified your email.
-                  </Text>
+                  <Text color="error">You have not verified your email.</Text>
                 </Row>
               )}
               <Row>
-                <Button
-                  className="my-3 w-75 mx-2"
-                  bordered
-                  color="gradient"
-                  type="submit"
-                  auto
-                >
+                <Button className="my-3 w-75 mx-2" type="submit" auto>
                   Login
                 </Button>
                 <Button
                   className="my-3 w-75 mx-2"
                   bordered
-                  color="gradient"
                   auto
                   onClick={() => navigate("signup")}
                 >

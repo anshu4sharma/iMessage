@@ -15,6 +15,7 @@ html {
 body {
   height: 100vh;
   position: relative;
+  user-select: none;
 }
 
 .modal-header .btn-close {
@@ -133,7 +134,28 @@ li {
   justify-content: center;
   height: 100vh;
   width: 100%;
-  background-image: linear-gradient(19deg, #3eecac 0%, #ee74e1 100%);
+  background-color: #e5e5f7;
+  opacity: 1;
+  background: radial-gradient(
+      circle,
+      transparent 20%,
+      #e5e5f7 20%,
+      #e5e5f7 80%,
+      transparent 80%,
+      transparent
+    ),
+    radial-gradient(
+        circle,
+        transparent 20%,
+        #e5e5f7 20%,
+        #e5e5f7 80%,
+        transparent 80%,
+        transparent
+      )
+      25px 25px,
+    linear-gradient(#444cf7 2px, transparent 2px) 0 -1px,
+    linear-gradient(90deg, #444cf7 2px, #e5e5f7 2px) -1px 0;
+  background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
 }
 
 .message-form > div {
@@ -141,4 +163,29 @@ li {
 }
 .join_roombtn button {
   width: 100%;
+}
+
+.loginpagechar {
+  display: flex;
+  justify-content: center;
+  transform-origin: 50% 50%;
+  animation: infinite 3s float;
+}
+
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(15px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+
+.verifyotp form {
+  display: grid;
+  margin-top: 0.5rem;
+  padding: 1rem;
 }

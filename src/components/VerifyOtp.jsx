@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { Password } from "./Password";
 import { useLocation, useNavigate } from "react-router-dom";
+import char from "../assets/images/char1.svg";
 const VerifyOtp = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -37,21 +38,12 @@ const VerifyOtp = () => {
   }
   return (
     <>
-      <div className="loginpage">
+      <div className="loginpage verifyotp">
         <Container>
-          <Card css={{ p: "$4", mw: "400px" }}>
-            <Card.Header>
-              <Text
-                css={{
-                  textGradient: "45deg, $blue600 -20%, $pink600 50%",
-                }}
-                b
-                size={24}
-                h1
-              >
-                Enter the verification code
-              </Text>
-            </Card.Header>
+          <Card css={{ p: "$6", mw: "400px" }}>
+            <div className="loginpagechar">
+              <img src={char} alt="char" width={"100"} height="100" />
+            </div>
             <Card.Body>
               <form onSubmit={handleSubmit}>
                 <Input
@@ -60,12 +52,14 @@ const VerifyOtp = () => {
                   value={values.otp}
                   fullWidth
                   required
-                  label="Verification code"
+                  label="Enter the verification code"
                   color="primary"
                   name="otp"
                   size="lg"
                   onChange={handleChange}
                   placeholder="Type here ..."
+                  minLength="4"
+                  maxLength="4"
                   contentLeft={<Password fill="currentColor" />}
                 />
                 <Button
