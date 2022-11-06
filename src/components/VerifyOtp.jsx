@@ -1,10 +1,10 @@
 import React from "react";
-import { Button, Card, Input, Container, Text } from "@nextui-org/react";
+import { Button, Card, Input, Container } from "@nextui-org/react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { Password } from "./Password";
 import { useLocation, useNavigate } from "react-router-dom";
-import char from "../assets/images/char1.svg";
+import char from "../assets/images/char1.png";
 const VerifyOtp = () => {
   const location = useLocation();
   const navigate = useNavigate();

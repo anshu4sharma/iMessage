@@ -5,7 +5,7 @@ import { Mail } from "./Mail";
 import { useNavigate } from "react-router-dom";
 import { Password } from "./Password";
 import { useFormik } from "formik";
-import char from "../assets/images/char1.svg";
+import char from "../assets/images/char1.png";
 import loginSchema from "./schema/loginSchema";
 function LoginPage() {
   const navigate = useNavigate();

@@ -5,7 +5,7 @@ import { Mail } from "./Mail";
 import { Password } from "./Password";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import char from "../assets/images/char1.svg";
+import char from "../assets/images/char1.png";
 import signupSchema from "./schema/signupSchema";
 function LoginPage() {
   const [iserror, setIserror] = useState(false);
