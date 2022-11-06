@@ -95,7 +95,7 @@ li {
 }
 
 .outgoing-msg {
-  padding: 0 0.8rem;
+  padding: 0.4rem 0.8rem;
   display: block;
   color: white;
   touch-action: manipulation;
