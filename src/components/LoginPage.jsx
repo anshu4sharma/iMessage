@@ -52,7 +52,7 @@ function LoginPage() {
   return (
     <div className="loginpage">
       <Container>
-        <Card css={{ p: "$6", mw: "400px", background: "#e5e5f7",border:"2px solid white" }}>
+        <Card css={{ p: "$6", mw: "400px", background: "#e5e5f7",border:"4px solid white" }}>
           <div className="loginpagechar">
             <img src={char} alt="char" width={"100"} height="100" />
           </div>
