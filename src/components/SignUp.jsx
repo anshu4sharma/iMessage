@@ -23,7 +23,7 @@ function LoginPage() {
         password: values.password,
       },
     });
-    if (data.data == "User Already Exists!") {
+    if (data.data === "User Already Exists!") {
       setIserror(true);
       navigate("/signup");
     } else {

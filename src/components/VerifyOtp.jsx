@@ -22,7 +22,7 @@ const VerifyOtp = () => {
       url: "https://userapi.azurewebsites.net/users/verify",
       headers: { "Content-Type": "application/json" },
       data: {
-        email: location.state.email,
+        email: location?.state?.email,
         otp: values.otp,
       },
     });
@@ -33,14 +33,14 @@ const VerifyOtp = () => {
     }
   };
   // console.log(location);
-  if (!location.state.email) {
+  if (!location?.state?.email) {
     navigate(-1);
   }
   return (
     <>
       <div className="loginpage verifyotp">
         <Container>
-          <Card css={{ p: "$6", mw: "400px" }}>
+          <Card css={{ p: "$6", mw: "400px"  , background: "#e5e5f7" , border:"4px solid white" }}>
             <div className="loginpagechar">
               <img src={char} alt="char" width={"100"} height="100" />
             </div>
@@ -48,7 +48,6 @@ const VerifyOtp = () => {
               <form onSubmit={handleSubmit}>
                 <Input
                   aria-label="Verification code"
-                  bordered
                   value={values.otp}
                   fullWidth
                   required
@@ -64,10 +63,9 @@ const VerifyOtp = () => {
                 />
                 <Button
                   auto
-                  bordered
-                  color="gradient"
                   type="submit"
-                  className="my-3 w-100"
+                  bordered
+                  className="mt-5 w-100"
                 >
                   Submit
                 </Button>
