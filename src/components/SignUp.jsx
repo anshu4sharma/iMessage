@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Button, Card, Input, Container, Text, Row } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  Input,
+  Container,
+  Text,
+  Row,
+  Loading,
+} from "@nextui-org/react";
 import axios from "axios";
 import { Mail } from "./Mail";
 import { Password } from "./Password";
@@ -9,26 +17,31 @@ import char from "../assets/images/char1.png";
 import signupSchema from "./schema/signupSchema";
 function LoginPage() {
   const [iserror, setIserror] = useState(false);
+  const [isloading, setIsloading] = useState(false);
   const navigate = useNavigate();
-  // https://userdata.onrender.com/
-
   const submitForm = async () => {
-    let data = await axios({
-      method: "post",
-      url: "https://userapi.azurewebsites.net/users",
-      headers: { "Content-Type": "application/json" },
-      data: {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-      },
-    });
-    if (data.data === "User Already Exists!") {
-      setIserror(true);
-      navigate("/signup");
-    } else {
-      localStorage.setItem("name", values.name);
-      navigate("/verify", { state: { email: values.email } });
+    try {
+      setIsloading(true);
+      let data = await axios({
+        method: "post",
+        url: "https://userapi.azurewebsites.net/users",
+        headers: { "Content-Type": "application/json" },
+        data: {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        },
+      });
+      if (data.data === "User Already Exists!") {
+        setIserror(true);
+        navigate("/signup");
+        setIsloading(false);
+      } else {
+        localStorage.setItem("name", values.name);
+        navigate("/verify", { state: { email: values.email } });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -48,7 +61,14 @@ function LoginPage() {
     <>
       <div className="loginpage">
         <Container>
-          <Card css={{ p: "$6", mw: "400px", background: "#e5e5f7" , border:"4px solid white" }}>
+          <Card
+            css={{
+              p: "$6",
+              mw: "400px",
+              background: "#e5e5f7",
+              border: "4px solid white",
+            }}
+          >
             <div className="loginpagechar">
               <img src={char} alt="char" width={"100"} height="100" />
             </div>
@@ -58,7 +78,6 @@ function LoginPage() {
                   aria-label="name"
                   label="Name"
                   placeholder="Enter your name"
-                  required
                   type="text"
                   color="primary"
                   size="lg"
@@ -115,9 +134,15 @@ function LoginPage() {
                   </Row>
                 )}
                 <Row className="gap-2">
-                  <Button className="my-2" type="submit" auto bordered>
-                    Create Account
-                  </Button>
+                  {isloading ? (
+                    <Button className="my-2" auto>
+                      <Loading type="default" color={"white"} />
+                    </Button>
+                  ) : (
+                    <Button className="my-2" type="submit" auto bordered>
+                      Create Account
+                    </Button>
+                  )}
 
                   <Button onClick={() => navigate(-1)} className="my-2 " auto>
                     Back to login

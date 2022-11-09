@@ -9,7 +9,12 @@ const ChatPage = ({ msgRec, pvtmsg, room }) => {
         window.scrollTo(0, windowHeight * windowHeight);
     }
   };
-  useEffect(() => {
+  const tapToScroll = (event) => {
+    if (msgref.current?.contains(event.target)) {
+      scrolltoView();
+    }
+  };
+useEffect(() => {
     scrolltoView();
   }, [msgRec, msgref.current?.lastChild]);
   return (
@@ -20,6 +25,7 @@ const ChatPage = ({ msgRec, pvtmsg, room }) => {
             ref={msgref}
             className="my-1 msg-container"
             id="message-container-child"
+            onClick={tapToScroll}
           >
             {room === ""
               ? msgRec.map((data, index) => {

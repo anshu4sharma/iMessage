@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Card, Input, Container, Text, Row } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  Input,
+  Container,
+  Text,
+  Row,
+  Loading,
+} from "@nextui-org/react";
 import { Mail } from "./Mail";
 import { useNavigate } from "react-router-dom";
 import { Password } from "./Password";
@@ -11,9 +19,11 @@ function LoginPage() {
   const navigate = useNavigate();
   let IsLoggedin = localStorage.getItem("IsLoggedin");
   const [iserror, setIserror] = useState(false);
+  const [isloading, setIsloading] = useState(false);
   const [isEmailVerified, setisEmailVerified] = useState(false);
   const fetchData = async () => {
     try {
+      setIsloading(true);
       let data = await axios({
         method: "post",
         url: "https://userapi.azurewebsites.net/users/login",
@@ -26,6 +36,7 @@ function LoginPage() {
         navigate("/chat");
       }
     } catch (error) {
+          setIsloading(false);
       if (error.response.status === 401) {
         setisEmailVerified(true);
       } else {
@@ -52,7 +63,14 @@ function LoginPage() {
   return (
     <div className="loginpage">
       <Container>
-        <Card css={{ p: "$6", mw: "400px", background: "#e5e5f7",border:"4px solid white" }}>
+        <Card
+          css={{
+            p: "$6",
+            mw: "400px",
+            background: "#e5e5f7",
+            border: "4px solid white",
+          }}
+        >
           <div className="loginpagechar">
             <img src={char} alt="char" width={"100"} height="100" />
           </div>
@@ -105,9 +123,15 @@ function LoginPage() {
                 </Row>
               )}
               <Row>
-                <Button className="my-3 w-75 mx-2" type="submit" auto>
-                  Login
-                </Button>
+                {isloading ? (
+                  <Button className="my-3 w-75 mx-2" auto>
+                    <Loading type="default" color={"white"} />
+                  </Button>
+                ) : (
+                  <Button className="my-3 w-75 mx-2" type="submit" auto>
+                    Login
+                  </Button>
+                )}
                 <Button
                   className="my-3 w-75 mx-2"
                   bordered
