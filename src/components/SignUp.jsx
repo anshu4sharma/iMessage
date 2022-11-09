@@ -56,7 +56,6 @@ function LoginPage() {
       submitForm();
     },
   });
-
   return (
     <>
       <div className="loginpage">
@@ -100,7 +99,6 @@ function LoginPage() {
                   type="email"
                   color="primary"
                   size="lg"
-                  minLength={5}
                   value={values.email}
                   placeholder="Email"
                   contentLeft={<Mail fill="currentColor" />}

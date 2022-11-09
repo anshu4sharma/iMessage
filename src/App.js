@@ -6,7 +6,6 @@ import Home from "./Home";
 import { Routes, Route } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import VerifyOtp from "./components/VerifyOtp";
-// const socket = io("https://userapi.azurewebsites.net/users");
 const socket = io("https://scoket.azurewebsites.net");
 function App() {
   const [msg, setMsg] = useState("");
@@ -17,11 +16,11 @@ function App() {
   const [Usrname, setmUserName] = useState(UserName);
   const [userCount, setUserCount] = useState(0);
   const sendMsg = async () => {
-    await socket.emit("send_msg", { msg, Usrname });
+    socket.emit("send_msg", { msg, Usrname });
     setMsg("");
   };
   const sendPvtMsg = async () => {
-    await socket.emit("send_pvt_msg", { msg, room, Usrname });
+    socket.emit("send_pvt_msg", { msg, room, Usrname });
     setMsg("");
   };
   useEffect(() => {
@@ -33,7 +32,7 @@ function App() {
     });
     socket.on("pvt_received_msg", async (data) => {
       // this will braodcast message to other open another window to see result
-      await setpvtmsg((prev) => [...prev, data]);
+      setpvtmsg((prev) => [...prev, data]);
     });
     socket.on("userCount", (data) => {
       setUserCount(data);
