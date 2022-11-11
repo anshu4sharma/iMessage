@@ -9,12 +9,12 @@ import {
   Row,
   Loading,
 } from "@nextui-org/react";
-import { Mail } from "./Mail";
+import { Mail } from "../components/Mail";
 import { useNavigate } from "react-router-dom";
-import { Password } from "./Password";
+import { Password } from "../components/Password";
 import { useFormik } from "formik";
 import char from "../assets/images/char1.png";
-import loginSchema from "./schema/loginSchema";
+import loginSchema from "../components/schema/loginSchema";
 function LoginPage() {
   const navigate = useNavigate();
   let IsLoggedin = localStorage.getItem("IsLoggedin");

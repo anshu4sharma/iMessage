@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ChatPage from "./components/ChatPage";
-import MessageForm from "./components/MessageForm";
-import NavbarReact from "./components/Navbar/NavbarReact";
+import ChatPage from "../components/ChatPage";
+import MessageForm from "../components/MessageForm";
+import NavbarReact from "../components/Navbar/NavbarReact";
 const Home = ({
   room,
   setRoom,

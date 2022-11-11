@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react";
 import { useFormik } from "formik";
 import axios from "axios";
-import { Password } from "./Password";
+import { Password } from "../components/Password";
 import { useLocation, useNavigate } from "react-router-dom";
 import char from "../assets/images/char1.png";
 import { useState } from "react";
@@ -42,7 +42,7 @@ const VerifyOtp = () => {
         setisLoading(false);
         setIsError(true);
       } else if (data.data === "Verified") {
-        alert("you have successfully verified please ");
+        alert("you have successfully verified please login with your credentials ");
         navigate("/");
       }
     } catch (error) {

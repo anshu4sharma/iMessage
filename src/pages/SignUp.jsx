@@ -9,12 +9,12 @@ import {
   Loading,
 } from "@nextui-org/react";
 import axios from "axios";
-import { Mail } from "./Mail";
-import { Password } from "./Password";
+import { Mail } from "../components/Mail";
+import { Password } from "../components/Password";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import char from "../assets/images/char1.png";
-import signupSchema from "./schema/signupSchema";
+import signupSchema from "../components/schema/signupSchema";
 function LoginPage() {
   const [iserror, setIserror] = useState(false);
   const [isloading, setIsloading] = useState(false);
