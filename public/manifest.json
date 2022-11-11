@@ -5,7 +5,7 @@
   "background_color": "#29a5f6",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/?standalone=true",
+  "start_url": "/",
   "icons": [
     {
       "src": "maskable.png",
