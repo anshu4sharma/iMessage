@@ -2,10 +2,10 @@ import {
   Navbar,
   Modal,
   Button,
-  Link,
   Text,
   Input,
   Avatar,
+  Container,
 } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -18,16 +18,14 @@ export default function NavbarReact({
 }) {
   const roomSubmit = async (e) => {
     e.preventDefault();
-    await joinRoom();
-    closeHandler();
+    joinRoom();
   };
   const [visible, setVisible] = useState(false);
   const handler = () => {
     setVisible(true);
   };
   const closeHandler = async () => {
-    await joinRoom();
-    await setVisible(false);
+    setVisible(false);
   };
   const authtoken = localStorage.getItem("authtoken");
   const fetchUserDetails = async () => {
@@ -79,7 +77,7 @@ export default function NavbarReact({
           )}
         </Navbar.Content>
       </Navbar>
-      <div>
+      <Container>
         <Modal
           blur
           closeButton
@@ -90,7 +88,7 @@ export default function NavbarReact({
         >
           <Modal.Header justify="flex-start">
             <Text b id="submitroom" size={18}>
-              Enter your Room Id
+              Create or join a Room
             </Text>
           </Modal.Header>
           <Modal.Body>
@@ -117,6 +115,7 @@ export default function NavbarReact({
                   className="my-3"
                   disabled={room.length < 4}
                   auto
+                  type="submit"
                   onClick={closeHandler}
                 >
                   Join room
@@ -125,7 +124,7 @@ export default function NavbarReact({
             </form>
           </Modal.Body>
         </Modal>
-      </div>
+      </Container>
     </>
   );
 }

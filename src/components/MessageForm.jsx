@@ -29,7 +29,6 @@ const MessageForm = ({ msg, sendMsg, setMsg, room, sendPvtMsg }) => {
       <Container>
         <form onSubmit={formSubmit} className="grid my-2  message-form">
           <Input
-            clearable
             contentRightStyling={false}
             placeholder="Type your message..."
             contentRight={
@@ -38,6 +37,7 @@ const MessageForm = ({ msg, sendMsg, setMsg, room, sendPvtMsg }) => {
               </SendButton>
             }
             aria-label="send-sms"
+            id="send-message"
             required
             autoComplete="off"
             value={msg}

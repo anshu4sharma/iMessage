@@ -127,7 +127,15 @@ li {
   touch-action: manipulation;
   width: 100%;
 }
-
+.messageTimestamp {
+  font-size: 8px;
+  position: absolute;
+  bottom: 0;
+  right: 14px;
+}
+.recMsgusername {
+  text-transform: capitalize;
+}
 .loginpage {
   display: grid;
   align-items: center;

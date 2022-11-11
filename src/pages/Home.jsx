@@ -27,7 +27,6 @@ const Home = ({
       navigate("/");
     }
   }, [IsLoggedin, authtoken]);
-
   return (
     <>
       <NavbarReact

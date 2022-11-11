@@ -42,11 +42,12 @@ function App() {
   }, [socket]);
   const joinRoom = () => {
     if (room !== "") {
+      socket.on("showRoomMessages", async (data) => {
+        setpvtmsg(data);
+      });
       socket.emit("join_room", room);
-      console.log("Joined", room);
     }
   };
-console.log(msgRec);
   return (
     <>
       <LoadingBar

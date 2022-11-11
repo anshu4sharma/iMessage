@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useRef } from "react";
+import moment from "moment";
+import { Container } from "@nextui-org/react";
 const ChatPage = ({ msgRec, pvtmsg, room }) => {
   const msgref = useRef();
   const scrolltoView = () => {
@@ -14,13 +16,13 @@ const ChatPage = ({ msgRec, pvtmsg, room }) => {
       scrolltoView();
     }
   };
-useEffect(() => {
+  useEffect(() => {
     scrolltoView();
   }, [msgRec, msgref.current?.lastChild]);
   return (
     <>
       <div className="home-page">
-        <div className="container message-container">
+        <Container className=" message-container">
           <div
             ref={msgref}
             className="my-1 msg-container"
@@ -28,24 +30,30 @@ useEffect(() => {
             onClick={tapToScroll}
           >
             {room === ""
-              ? msgRec.map((data, index) => {
+              ? msgRec?.map((data, index) => {
                   return (
                     <div className="upcoming-message" key={index}>
-                      <span style={{ fontSize: "12px" }}>{data.Usrname}</span>
-                      <li> {data.msg}</li>
+                      <span className="recMsgusername" style={{ fontSize: "12px" }}>{data?.Usrname}</span>
+                      <li> {data?.msg}</li>
+                      <span className="messageTimestamp">
+                        {moment(data?.timeStamp).format('LTS').toString()}
+                      </span>
                     </div>
                   );
                 })
-              : pvtmsg.map((data, index) => {
+              : pvtmsg?.map((data, index) => {
                   return (
                     <div className="upcoming-message" key={index}>
-                      <span style={{ fontSize: "12px" }}>{data.Usrname}</span>
-                      <li> {data.msg}</li>
+                      <span  className="recMsgusername"  style={{ fontSize: "12px" }}>{data?.Usrname}</span>
+                      <li> {data?.msg}</li>
+                      <span className="messageTimestamp">
+                        {moment(data?.timeStamp).format('LTS').toString()}
+                      </span>
                     </div>
                   );
                 })}
           </div>
-        </div>
+        </Container>
       </div>
     </>
   );
