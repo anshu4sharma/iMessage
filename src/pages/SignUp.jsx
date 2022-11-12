@@ -32,16 +32,13 @@ function LoginPage() {
           password: values.password,
         },
       });
-      if (data.data === "User Already Exists!") {
-        setIserror(true);
-        navigate("/signup");
-        setIsloading(false);
-      } else {
+      if (data.status === 200) {
         localStorage.setItem("name", values.name);
         navigate("/verify", { state: { email: values.email } });
       }
     } catch (error) {
-      console.log(error);
+      setIserror(true);
+      setIsloading(false);
     }
   };
 
