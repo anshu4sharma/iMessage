@@ -31,7 +31,7 @@ const VerifyOtp = () => {
       setisLoading(true);
       let data = await axios({
         method: "post",
-        url: "https://userapi.azurewebsites.net/users/verify",
+        url: "https://userapi.cyclic.app/users/verify",
         headers: { "Content-Type": "application/json" },
         data: {
           email: location?.state?.email,

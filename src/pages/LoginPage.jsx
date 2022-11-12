@@ -26,7 +26,7 @@ function LoginPage() {
       setIsloading(true);
       let data = await axios({
         method: "post",
-        url: "https://userapi.azurewebsites.net/users/login",
+        url: "https://userapi.cyclic.app/users/login",
         headers: { "Content-Type": "application/json" },
         data: { email: values.email, password: values.password },
       });

@@ -31,7 +31,7 @@ export default function NavbarReact({
   const fetchUserDetails = async () => {
     let data = await axios({
       method: "post",
-      url: "https://userapi.azurewebsites.net/users/getuser",
+      url: "https://userapi.cyclic.app/users/getuser",
       headers: {
         "Content-Type": "application/json",
         "auth-token": authtoken,
