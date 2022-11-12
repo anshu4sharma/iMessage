@@ -6,7 +6,7 @@ import VerifyOtp from "./pages/VerifyOtp";
 import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-const socket = io("https://powerful-lion-pocket.cyclic.app");
+const socket = io("https://imessage.up.railway.app");
 // const socket = io("http://localhost:4000");
 function App() {
   const [msg, setMsg] = useState("");

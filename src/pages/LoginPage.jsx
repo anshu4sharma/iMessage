@@ -26,7 +26,7 @@ function LoginPage() {
       setIsloading(true);
       let data = await axios({
         method: "post",
-        url: "https://userapi.cyclic.app/users/login",
+        url: "https://anshu.up.railway.app/users/login",
         headers: { "Content-Type": "application/json" },
         data: { email: values.email, password: values.password },
       });
