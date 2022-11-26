@@ -19,14 +19,12 @@ const Home = ({
   setMsg,
 }) => {
   const navigate = useNavigate();
-  let IsLoggedin = localStorage.getItem("IsLoggedin");
   let authtoken = localStorage.getItem("authtoken");
-
   useEffect(() => {
-    if (IsLoggedin == null || undefined) {
+    if (authtoken == null || undefined) {
       navigate("/");
     }
-  }, [IsLoggedin, authtoken]);
+  }, [authtoken]);
   return (
     <>
       <NavbarReact

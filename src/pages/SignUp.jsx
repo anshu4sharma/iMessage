@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -53,6 +53,13 @@ function LoginPage() {
       submitForm();
     },
   });
+
+  useEffect(() => {
+    const authToken = localStorage.getItem('authtoken')
+    if (authToken) {
+      navigate('/chat')
+    }
+  }, [])
   return (
     <>
       <div className="loginpage">

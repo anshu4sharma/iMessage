@@ -6,6 +6,7 @@ import VerifyOtp from "./pages/VerifyOtp";
 import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
+import ProtectedPages from './components/ProtectedPages'
 const socket = io("https://imessage.up.railway.app");
 // const socket = io("http://localhost:4000");
 function App() {
@@ -60,26 +61,28 @@ function App() {
         <Route path="/" element={<LoginPage setmUserName={setmUserName} />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/verify" element={<VerifyOtp />} />
-        <Route
-          path="/chat"
-          element={
-            <Home
-              room={room}
-              setRoom={setRoom}
-              joinRoom={joinRoom}
-              setmUserName={setmUserName}
-              userCount={userCount}
-              Usrname={Usrname}
-              msgRec={msgRec}
-              pvtmsg={pvtmsg}
-              socket={socket}
-              msg={msg}
-              sendPvtMsg={sendPvtMsg}
-              sendMsg={sendMsg}
-              setMsg={setMsg}
-            />
-          }
-        />
+        <Route element={<ProtectedPages />}>
+          <Route
+            path="/chat"
+            element={
+              <Home
+                room={room}
+                setRoom={setRoom}
+                joinRoom={joinRoom}
+                setmUserName={setmUserName}
+                userCount={userCount}
+                Usrname={Usrname}
+                msgRec={msgRec}
+                pvtmsg={pvtmsg}
+                socket={socket}
+                msg={msg}
+                sendPvtMsg={sendPvtMsg}
+                sendMsg={sendMsg}
+                setMsg={setMsg}
+              />
+            }
+          />
+        </Route>
         <Route path="*" element={<LoginPage setmUserName={setmUserName} />} />
       </Routes>
     </>

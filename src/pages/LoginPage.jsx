@@ -17,7 +17,6 @@ import char from "../assets/images/char1.png";
 import loginSchema from "../components/schema/loginSchema";
 function LoginPage() {
   const navigate = useNavigate();
-  let IsLoggedin = localStorage.getItem("IsLoggedin");
   const [iserror, setIserror] = useState(false);
   const [isloading, setIsloading] = useState(false);
   const [isEmailVerified, setisEmailVerified] = useState(false);
@@ -32,11 +31,10 @@ function LoginPage() {
       });
       if (data?.data?.authToken !== undefined || null) {
         localStorage.setItem("authtoken", data.data.authToken);
-        localStorage.setItem("IsLoggedin", true);
         navigate("/chat");
       }
     } catch (error) {
-          setIsloading(false);
+      setIsloading(false);
       if (error.response.status === 401) {
         setisEmailVerified(true);
       } else {
@@ -56,7 +54,7 @@ function LoginPage() {
   });
   let authToken = localStorage.getItem("authtoken");
   useEffect(() => {
-    if (IsLoggedin || authToken) {
+    if (authToken) {
       navigate("/chat");
     }
   }, []);

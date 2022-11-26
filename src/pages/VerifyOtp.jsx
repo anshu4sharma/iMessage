@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Card,
@@ -49,9 +49,16 @@ const VerifyOtp = () => {
       console.log(error);
     }
   };
-  if (!location?.state?.email) {
-    navigate(-1);
-  }
+  useEffect(() => {
+    const authToken = localStorage.getItem('authtoken')
+    if (!location?.state?.email) {
+      navigate(-1);
+    }
+    if (authToken) {
+      navigate('/chat')
+    }
+  }, [])
+
   return (
     <>
       <div className="loginpage verifyotp">
