@@ -24,7 +24,7 @@ function LoginPage() {
       setIsloading(true);
       let data = await axios({
         method: "post",
-        url: "https://anshu.up.railway.app/users",
+        url: `${process.env.REACT_APP_SERVER_URL}/users`,
         headers: { "Content-Type": "application/json" },
         data: {
           name: values.name,

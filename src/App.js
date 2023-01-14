@@ -7,8 +7,7 @@ import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import ProtectedPages from './components/ProtectedPages'
-const socket = io("https://imessage.up.railway.app");
-// const socket = io("http://localhost:4000");
+const socket = io(process.env.REACT_APP_SOCKET_URL);
 function App() {
   const [msg, setMsg] = useState("");
   const [room, setRoom] = useState("");

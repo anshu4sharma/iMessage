@@ -31,7 +31,7 @@ const VerifyOtp = () => {
       setisLoading(true);
       let data = await axios({
         method: "post",
-        url: "https://anshu.up.railway.app/users/verify",
+        url: `${process.env.REACT_APP_SERVER_URL}/users/verify`,
         headers: { "Content-Type": "application/json" },
         data: {
           email: location?.state?.email,
@@ -42,7 +42,9 @@ const VerifyOtp = () => {
         setisLoading(false);
         setIsError(true);
       } else if (data.data === "Verified") {
-        alert("you have successfully verified please login with your credentials ");
+        alert(
+          "you have successfully verified please login with your credentials "
+        );
         navigate("/");
       }
     } catch (error) {
@@ -50,14 +52,14 @@ const VerifyOtp = () => {
     }
   };
   useEffect(() => {
-    const authToken = localStorage.getItem('authtoken')
+    const authToken = localStorage.getItem("authtoken");
     if (!location?.state?.email) {
       navigate(-1);
     }
     if (authToken) {
-      navigate('/chat')
+      navigate("/chat");
     }
-  }, [])
+  }, []);
 
   return (
     <>

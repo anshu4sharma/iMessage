@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { NextUIProvider } from "@nextui-org/react";
