@@ -31,7 +31,7 @@ export default function NavbarReact({
   const fetchUserDetails = async () => {
     let data = await axios({
       method: "get",
-      url: "https://anshu.up.railway.app/users/getuser",
+      url: `${process.env.REACT_APP_SERVER_URL}/users/getuser`,
       headers: {
         "Content-Type": "application/json",
         "auth-token": authtoken,
