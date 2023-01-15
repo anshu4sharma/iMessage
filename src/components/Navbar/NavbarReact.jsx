@@ -29,15 +29,22 @@ export default function NavbarReact({
   };
   const authtoken = localStorage.getItem("authtoken");
   const fetchUserDetails = async () => {
-    let data = await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_SERVER_URL}/users/getuser`,
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": authtoken,
-      },
-    });
-    setmUserName(data.data.name);
+    try {
+      let { data, status } = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_SERVER_URL}/users/getuser`,
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": authtoken,
+        },
+      });
+      if (status === 200) {
+        setmUserName(data?.name);
+      }
+    } catch (error) {
+      console.log("auth failed");
+      localStorage.clear();
+    }
   };
   useEffect(() => {
     if (authtoken !== undefined || null) {

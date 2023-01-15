@@ -1,8 +1,11 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
-const ProtectedPages = () => {
-  const authToken = localStorage.getItem("authtoken");
+const authToken = localStorage.getItem("authtoken");
+
+export const ProtectedPages = () => {
   return authToken ? <Outlet /> : <Navigate to={"/"} />;
 };
 
-export default ProtectedPages;
+export const ProtectedAuthPages = () => {
+  return authToken ? <Navigate to={"/chat"} /> : <Outlet />;
+};

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import {
   Button,
@@ -9,37 +9,34 @@ import {
   Row,
   Loading,
 } from "@nextui-org/react";
-import { Mail } from "../components/Mail";
+import { Mail } from "../../components/Mail";
 import { useNavigate } from "react-router-dom";
-import { Password } from "../components/Password";
+import { Password } from "../../components/Password";
 import { useFormik } from "formik";
-import char from "../assets/images/char1.png";
-import loginSchema from "../components/schema/loginSchema";
-function LoginPage() {
+import loginSchema from "../../components/schema/loginSchema";
+import { toast } from "react-hot-toast";
+export function LoginPage() {
   const navigate = useNavigate();
-  const [iserror, setIserror] = useState(false);
   const [isloading, setIsloading] = useState(false);
-  const [isEmailVerified, setisEmailVerified] = useState(false);
   const fetchData = async () => {
     try {
       setIsloading(true);
-      let data = await axios({
+      let { data, status } = await axios({
         method: "post",
         url: `${process.env.REACT_APP_SERVER_URL}/users/login`,
         headers: { "Content-Type": "application/json" },
         data: { email: values.email, password: values.password },
       });
-      if (data?.data?.authToken !== undefined || null) {
-        localStorage.setItem("authtoken", data.data.authToken);
-        navigate("/chat");
+      if (status === 200) {
+        localStorage.setItem("authtoken", data?.authToken);
+        navigate(0);
+        toast.success("Logged in successfully !");
       }
     } catch (error) {
+      console.log(error?.response);
+      toast.error(error?.response?.data);
+    } finally {
       setIsloading(false);
-      if (error.response.status === 401) {
-        setisEmailVerified(true);
-      } else {
-        setIserror(true);
-      }
     }
   };
   const { handleSubmit, values, handleChange, errors, touched } = useFormik({
@@ -52,12 +49,6 @@ function LoginPage() {
       fetchData();
     },
   });
-  let authToken = localStorage.getItem("authtoken");
-  useEffect(() => {
-    if (authToken) {
-      navigate("/chat");
-    }
-  }, []);
   return (
     <div className="loginpage">
       <Container>
@@ -70,7 +61,7 @@ function LoginPage() {
           }}
         >
           <div className="loginpagechar">
-            <img src={char} alt="char" width={"100"} height="100" />
+            <img src={"./char1.png"} alt="char" width={"100"} height="100" />
           </div>
           <Card.Body>
             <form onSubmit={handleSubmit}>
@@ -110,16 +101,7 @@ function LoginPage() {
               {errors.password && touched.password ? (
                 <Text color="error">{errors.password}</Text>
               ) : null}
-              {iserror && (
-                <Row>
-                  <Text color="error">Please enter valid credentials</Text>
-                </Row>
-              )}
-              {isEmailVerified && (
-                <Row>
-                  <Text color="error">You have not verified your email.</Text>
-                </Row>
-              )}
+
               <Row>
                 {isloading ? (
                   <Button className="my-3 w-75 mx-2" auto>

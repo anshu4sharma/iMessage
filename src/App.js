@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import io from "socket.io-client";
-import LoginPage from "./pages/LoginPage";
-import SignUp from "./pages/SignUp";
-import VerifyOtp from "./pages/VerifyOtp";
-import Home from "./pages/Home";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-import ProtectedPages from './components/ProtectedPages'
+import {
+  ProtectedPages,
+  ProtectedAuthPages,
+} from "./components/ProtectedPages";
+import Loader from "./components/Loader";
+import  { Toaster } from "react-hot-toast";
+const Home = lazy(() => import("./pages/Home"));
+const SignUp = lazy(() => import("./pages/SignUp"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const VerifyOtp = lazy(() => import("./pages/VerifyOtp"));
 const socket = io(process.env.REACT_APP_SOCKET_URL);
 function App() {
   const [msg, setMsg] = useState("");
@@ -56,34 +61,44 @@ function App() {
         progress={100}
         onLoaderFinished={0}
       />
-      <Routes>
-        <Route path="/" element={<LoginPage setmUserName={setmUserName} />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/verify" element={<VerifyOtp />} />
-        <Route element={<ProtectedPages />}>
-          <Route
-            path="/chat"
-            element={
-              <Home
-                room={room}
-                setRoom={setRoom}
-                joinRoom={joinRoom}
-                setmUserName={setmUserName}
-                userCount={userCount}
-                Usrname={Usrname}
-                msgRec={msgRec}
-                pvtmsg={pvtmsg}
-                socket={socket}
-                msg={msg}
-                sendPvtMsg={sendPvtMsg}
-                sendMsg={sendMsg}
-                setMsg={setMsg}
+      <Toaster />
+      <BrowserRouter>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route element={<ProtectedAuthPages />}>
+              <Route
+                path="/"
+                element={<LoginPage setmUserName={setmUserName} />}
               />
-            }
-          />
-        </Route>
-        <Route path="*" element={<LoginPage setmUserName={setmUserName} />} />
-      </Routes>
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/verify" element={<VerifyOtp />} />
+            </Route>
+            <Route element={<ProtectedPages />}>
+              <Route
+                path="/chat"
+                element={
+                  <Home
+                    room={room}
+                    setRoom={setRoom}
+                    joinRoom={joinRoom}
+                    setmUserName={setmUserName}
+                    userCount={userCount}
+                    Usrname={Usrname}
+                    msgRec={msgRec}
+                    pvtmsg={pvtmsg}
+                    socket={socket}
+                    msg={msg}
+                    sendPvtMsg={sendPvtMsg}
+                    sendMsg={sendMsg}
+                    setMsg={setMsg}
+                  />
+                }
+              />
+            </Route>
+            <Route path="*" element={<Navigate to={"/"} />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
     </>
   );
 }

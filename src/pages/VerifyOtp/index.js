@@ -4,18 +4,16 @@ import {
   Card,
   Input,
   Container,
-  Text,
   Loading,
 } from "@nextui-org/react";
 import { useFormik } from "formik";
 import axios from "axios";
-import { Password } from "../components/Password";
+import { Password } from "../../components/Password";
 import { useLocation, useNavigate } from "react-router-dom";
-import char from "../assets/images/char1.png";
 import { useState } from "react";
+import toast from "react-hot-toast";
 const VerifyOtp = () => {
   const [isloading, setisLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { handleSubmit, values, handleChange } = useFormik({
@@ -38,28 +36,21 @@ const VerifyOtp = () => {
           otp: values.otp,
         },
       });
-      if (data.data === "wrong otp") {
-        setisLoading(false);
-        setIsError(true);
-      } else if (data.data === "Verified") {
-        alert(
-          "you have successfully verified please login with your credentials "
-        );
+      if (data.status === 200) {
+        toast.success("Successfully Verified!");
         navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      toast.error("An error occured !");
+    } finally {
+      setisLoading(false);
     }
   };
   useEffect(() => {
-    const authToken = localStorage.getItem("authtoken");
     if (!location?.state?.email) {
       navigate(-1);
     }
-    if (authToken) {
-      navigate("/chat");
-    }
-  }, []);
+  }, [location?.state?.email, navigate]);
 
   return (
     <>
@@ -74,7 +65,7 @@ const VerifyOtp = () => {
             }}
           >
             <div className="loginpagechar">
-              <img src={char} alt="char" width={"100"} height="100" />
+              <img src={"./char1.png"} alt="char" width={"100"} height="100" />
             </div>
             <Card.Body>
               <form onSubmit={handleSubmit}>
@@ -93,7 +84,6 @@ const VerifyOtp = () => {
                   max="9999"
                   contentLeft={<Password fill="currentColor" />}
                 />
-                {isError && <Text color="error">Please enter a valid otp</Text>}
                 {isloading ? (
                   <Button auto type="submit" className="mt-5 w-100">
                     <Loading type="default" color={"white"} />

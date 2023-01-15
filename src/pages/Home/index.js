@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import ChatPage from "../components/ChatPage";
-import MessageForm from "../components/MessageForm";
-import NavbarReact from "../components/Navbar/NavbarReact";
-const Home = ({
+import ChatPage from "../../components/ChatPage";
+import MessageForm from "../../components/MessageForm";
+import NavbarReact from "../../components/Navbar/NavbarReact";
+ const Home = ({
   room,
   setRoom,
   joinRoom,
@@ -18,13 +16,6 @@ const Home = ({
   sendMsg,
   setMsg,
 }) => {
-  const navigate = useNavigate();
-  let authtoken = localStorage.getItem("authtoken");
-  useEffect(() => {
-    if (authtoken == null || undefined) {
-      navigate("/");
-    }
-  }, [authtoken]);
   return (
     <>
       <NavbarReact

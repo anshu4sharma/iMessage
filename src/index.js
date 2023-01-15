@@ -6,15 +6,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { NextUIProvider } from "@nextui-org/react";
-import { BrowserRouter } from "react-router-dom";
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
     <NextUIProvider>
       <App />
     </NextUIProvider>
-  </BrowserRouter>
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -9,14 +9,13 @@ import {
   Loading,
 } from "@nextui-org/react";
 import axios from "axios";
-import { Mail } from "../components/Mail";
-import { Password } from "../components/Password";
+import { Mail } from "../../components/Mail";
+import { Password } from "../../components/Password";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import char from "../assets/images/char1.png";
-import signupSchema from "../components/schema/signupSchema";
+import toast from "react-hot-toast";
+import signupSchema from "../../components/schema/signupSchema";
 function LoginPage() {
-  const [iserror, setIserror] = useState(false);
   const [isloading, setIsloading] = useState(false);
   const navigate = useNavigate();
   const submitForm = async () => {
@@ -34,10 +33,12 @@ function LoginPage() {
       });
       if (data.status === 200) {
         localStorage.setItem("name", values.name);
+        toast.success("Successfully sent !");
         navigate("/verify", { state: { email: values.email } });
       }
     } catch (error) {
-      setIserror(true);
+      toast.error("User with email id already exists !");
+    } finally {
       setIsloading(false);
     }
   };
@@ -54,12 +55,6 @@ function LoginPage() {
     },
   });
 
-  useEffect(() => {
-    const authToken = localStorage.getItem('authtoken')
-    if (authToken) {
-      navigate('/chat')
-    }
-  }, [])
   return (
     <>
       <div className="loginpage">
@@ -73,7 +68,7 @@ function LoginPage() {
             }}
           >
             <div className="loginpagechar">
-              <img src={char} alt="char" width={"100"} height="100" />
+              <img src={"./char1.png"} alt="char" width={"100"} height="100" />
             </div>
             <Card.Body>
               <form onSubmit={handleSubmit}>
@@ -128,13 +123,6 @@ function LoginPage() {
                 {errors.password && touched.password ? (
                   <Text color="error">{errors.password}</Text>
                 ) : null}
-                {iserror && (
-                  <Row>
-                    <Text color="error">
-                      User with email id already exists !
-                    </Text>
-                  </Row>
-                )}
                 <Row className="gap-2">
                   {isloading ? (
                     <Button className="my-2" auto>
