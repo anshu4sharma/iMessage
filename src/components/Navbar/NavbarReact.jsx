@@ -8,7 +8,8 @@ import {
   Container,
 } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { decodeToken } from "react-jwt";
+const token = localStorage.getItem("authtoken");
 export default function NavbarReact({
   room,
   setRoom,
@@ -30,17 +31,8 @@ export default function NavbarReact({
   const authtoken = localStorage.getItem("authtoken");
   const fetchUserDetails = async () => {
     try {
-      let { data, status } = await axios({
-        method: "get",
-        url: `${process.env.REACT_APP_SERVER_URL}/users/getuser`,
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": authtoken,
-        },
-      });
-      if (status === 200) {
-        setmUserName(data?.name);
-      }
+      const myDecodedToken = decodeToken(token);
+      setmUserName(myDecodedToken.name);
     } catch (error) {
       console.log("auth failed");
       localStorage.clear();
