@@ -9,6 +9,7 @@ import {
 } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { decodeToken } from "react-jwt";
+import { useNavigate } from "react-router-dom";
 const token = localStorage.getItem("authtoken");
 export default function NavbarReact({
   room,
@@ -17,6 +18,7 @@ export default function NavbarReact({
   Usrname,
   setmUserName,
 }) {
+  const navigate = useNavigate();
   const roomSubmit = async (e) => {
     e.preventDefault();
     joinRoom();
@@ -30,12 +32,17 @@ export default function NavbarReact({
   };
   const authtoken = localStorage.getItem("authtoken");
   const fetchUserDetails = async () => {
+    const myDecodedToken = decodeToken(token);
     try {
-      const myDecodedToken = decodeToken(token);
-      setmUserName(myDecodedToken.name);
+      if (myDecodedToken.name) {
+        setmUserName(myDecodedToken.name);
+      } else {
+        throw Error("Invalid Token");
+      }
     } catch (error) {
       console.log("auth failed");
       localStorage.clear();
+      navigate(0);
     }
   };
   useEffect(() => {
