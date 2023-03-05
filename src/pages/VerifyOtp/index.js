@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import {
   Button,
-  Card,
   Input,
   Container,
+  Card,
   Loading,
 } from "@nextui-org/react";
 import { useFormik } from "formik";
@@ -62,6 +62,7 @@ const VerifyOtp = () => {
               mw: "400px",
               background: "#e5e5f7",
               border: "4px solid white",
+              minWidth: "400px",
             }}
           >
             <div className="loginpagechar">

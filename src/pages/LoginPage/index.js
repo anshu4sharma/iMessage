@@ -53,9 +53,10 @@ export function LoginPage() {
     <div className="loginpage">
       <Container>
         <Card
-          css={{
-            p: "$6",
+            css={{
             mw: "400px",
+            minWidth: "400px",
+            p: 6,
             background: "#e5e5f7",
             border: "4px solid white",
           }}

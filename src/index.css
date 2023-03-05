@@ -1,11 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Quicksand:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins:wght@500;600&family=Ubuntu&display=swap");
 
 * {
   margin: 0;
   box-sizing: border-box;
   padding: 0;
-  font-family: "Open Sans", sans-serif;
-  font-family: "Quicksand", sans-serif;
+  font-family: "Indie Flower", cursive;
+  font-family: "Poppins", sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 html {

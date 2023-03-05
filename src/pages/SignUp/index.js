@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import {
   Button,
-  Card,
   Input,
   Container,
   Text,
+  Card,
   Row,
   Loading,
 } from "@nextui-org/react";
@@ -65,6 +65,7 @@ function LoginPage() {
               mw: "400px",
               background: "#e5e5f7",
               border: "4px solid white",
+              minWidth: "400px",
             }}
           >
             <div className="loginpagechar">
