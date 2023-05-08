@@ -7,13 +7,16 @@ import {
   ProtectedAuthPages,
 } from "./components/ProtectedPages";
 import Loader from "./components/Loader";
-import  { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import { decodeToken } from "react-jwt";
 const Home = lazy(() => import("./pages/Home"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const VerifyOtp = lazy(() => import("./pages/VerifyOtp"));
 const socket = io(process.env.REACT_APP_SOCKET_URL);
+const token = localStorage.getItem("authtoken");
 function App() {
+  const myDecodedToken = decodeToken(token);
   const [msg, setMsg] = useState("");
   const [room, setRoom] = useState("");
   const [msgRec, setmsgRec] = useState([]);
@@ -22,11 +25,11 @@ function App() {
   const [Usrname, setmUserName] = useState(UserName);
   const [userCount, setUserCount] = useState(0);
   const sendMsg = async () => {
-    socket.emit("send_msg", { msg, Usrname });
+    socket.emit("send_msg", { msg, Usrname, id:myDecodedToken.id });
     setMsg("");
   };
   const sendPvtMsg = async () => {
-    socket.emit("send_pvt_msg", { msg, room, Usrname });
+    socket.emit("send_pvt_msg", { msg, room, Usrname, id:myDecodedToken.id });
     setMsg("");
   };
   useEffect(() => {

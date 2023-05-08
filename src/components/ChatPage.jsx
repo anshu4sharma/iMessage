@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { useRef } from "react";
 import moment from "moment";
 import { Container } from "@nextui-org/react";
+import { decodeToken } from "react-jwt";
+const token = localStorage.getItem("authtoken");
 const ChatPage = ({ msgRec, pvtmsg, room }) => {
+  const myDecodedToken = decodeToken(token);
   const msgref = useRef();
   const scrolltoView = () => {
     let windowHeight = window.innerHeight;
@@ -32,22 +35,43 @@ const ChatPage = ({ msgRec, pvtmsg, room }) => {
             {room === ""
               ? msgRec?.map((data, index) => {
                   return (
-                    <div className="upcoming-message" key={index}>
-                      <span className="recMsgusername" style={{ fontSize: "12px" }}>{data?.Usrname}</span>
+                    <div
+                      className={
+                        data?.id === myDecodedToken?.id
+                          ? "outgoing-msg"
+                          : "upcoming-message"
+                      }
+                      key={index}
+                    >
+                      <span
+                        className="recMsgusername"
+                        style={{ fontSize: "12px" }}
+                      >
+                        {data?.Usrname}
+                      </span>
                       <li> {data?.msg}</li>
                       <span className="messageTimestamp">
-                        {moment(data?.timeStamp).format('LTS').toString()}
+                        {moment(data?.timeStamp).format("LTS").toString()}
                       </span>
                     </div>
                   );
                 })
               : pvtmsg?.map((data, index) => {
                   return (
-                    <div className="upcoming-message" key={index}>
-                      <span  className="recMsgusername"  style={{ fontSize: "12px" }}>{data?.Usrname}</span>
+                    <div  className={
+                        data?.id === myDecodedToken?.id
+                          ? "outgoing-msg"
+                          : "upcoming-message"
+                      } key={index}>
+                      <span
+                        className="recMsgusername"
+                        style={{ fontSize: "12px" }}
+                      >
+                        {data?.Usrname}
+                      </span>
                       <li> {data?.msg}</li>
                       <span className="messageTimestamp">
-                        {moment(data?.timeStamp).format('LTS').toString()}
+                        {moment(data?.timeStamp).format("LTS").toString()}
                       </span>
                     </div>
                   );

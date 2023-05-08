@@ -30,26 +30,25 @@ export default function NavbarReact({
   const closeHandler = async () => {
     setVisible(false);
   };
-  const authtoken = localStorage.getItem("authtoken");
-  const fetchUserDetails = async () => {
-    const myDecodedToken = decodeToken(token);
-    try {
-      if (myDecodedToken.name) {
-        setmUserName(myDecodedToken.name);
-      } else {
-        throw Error("Invalid Token");
-      }
-    } catch (error) {
-      console.log("auth failed");
-      localStorage.clear();
-      navigate(0);
-    }
-  };
   useEffect(() => {
-    if (authtoken !== undefined || null) {
+    const fetchUserDetails = async () => {
+      const myDecodedToken = decodeToken(token);
+      try {
+        if (myDecodedToken.name) {
+          setmUserName(myDecodedToken.name);
+        } else {
+          throw Error("Invalid Token");
+        }
+      } catch (error) {
+        console.log("auth failed");
+        localStorage.clear();
+        navigate(0);
+      }
+    };
+    if (token !== undefined || null) {
       fetchUserDetails();
     }
-  }, []);
+  }, [navigate, setmUserName]);
   return (
     <>
       <Navbar variant={"sticky"}>
