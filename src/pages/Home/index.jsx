@@ -42,7 +42,6 @@ import NavbarReact from "../../components/Navbar/NavbarReact";
         sendMsg={sendMsg}
         setMsg={setMsg}
         room={room}
-        socket={socket}
       />
     </>
   );

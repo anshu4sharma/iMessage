@@ -1,0 +1,1 @@
+export const authtoken = localStorage.getItem("authtoken")

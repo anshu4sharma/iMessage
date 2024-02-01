@@ -3,9 +3,10 @@ import { useRef } from "react";
 import moment from "moment";
 import { Container } from "@nextui-org/react";
 import { decodeToken } from "react-jwt";
-const token = localStorage.getItem("authtoken");
+import {authtoken} from "../constants"
+
 const ChatPage = ({ msgRec, pvtmsg, room }) => {
-  const myDecodedToken = decodeToken(token);
+  const myDecodedToken = decodeToken(authtoken);
   const msgref = useRef();
   const scrolltoView = () => {
     let windowHeight = window.innerHeight;

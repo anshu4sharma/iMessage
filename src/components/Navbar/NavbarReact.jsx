@@ -10,7 +10,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { decodeToken } from "react-jwt";
 import { useNavigate } from "react-router-dom";
-const token = localStorage.getItem("authtoken");
+import {authtoken} from "../../constants"
+
 export default function NavbarReact({
   room,
   setRoom,
@@ -32,7 +33,7 @@ export default function NavbarReact({
   };
   useEffect(() => {
     const fetchUserDetails = async () => {
-      const myDecodedToken = decodeToken(token);
+      const myDecodedToken = decodeToken(authtoken);
       try {
         if (myDecodedToken.name) {
           setmUserName(myDecodedToken.name);
@@ -45,7 +46,7 @@ export default function NavbarReact({
         navigate(0);
       }
     };
-    if (token !== undefined || null) {
+    if (authtoken !== undefined || null) {
       fetchUserDetails();
     }
   }, [navigate, setmUserName]);

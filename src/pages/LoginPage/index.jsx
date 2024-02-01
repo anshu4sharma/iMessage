@@ -33,8 +33,8 @@ export function LoginPage() {
         toast.success("Logged in successfully !");
       }
     } catch (error) {
-      console.log(error?.response);
-      toast.error(error?.response?.data);
+      console.log(error);
+      toast.error(error?.response?.data || error?.message);
     } finally {
       setIsloading(false);
     }
@@ -53,7 +53,7 @@ export function LoginPage() {
     <div className="loginpage">
       <Container>
         <Card
-            css={{
+          css={{
             mw: "400px",
             minWidth: "400px",
             p: 6,
